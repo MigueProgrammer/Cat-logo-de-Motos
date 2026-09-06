@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html><html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>MOTOX | Catálogo de Motos</title>
-
-<style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MOTOX | Catálogo de Motos</title><style>
 *{
     margin:0;
     padding:0;
@@ -240,17 +235,22 @@ nav a:hover{
 }
 
 .brand-logo{
-    width:58px;
-    height:58px;
+    width:65px;
+    height:65px;
     border-radius:16px;
     background:#101827;
     border:1px solid rgba(0,150,255,.3);
     display:flex;
     align-items:center;
     justify-content:center;
-    font-weight:bold;
-    color:#00aaff;
-    font-size:14px;
+    overflow:hidden;
+}
+
+.brand-logo img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    padding:7px;
 }
 
 .brand-header h3{
@@ -318,6 +318,7 @@ nav a:hover{
     border-radius:20px;
     font-size:11px;
     font-weight:bold;
+    z-index:2;
 }
 
 .card-content{
@@ -398,6 +399,12 @@ nav a:hover{
     border-radius:30px;
 }
 
+/* HIDDEN */
+
+.hidden{
+    display:none !important;
+}
+
 /* FOOTER */
 
 footer{
@@ -459,6 +466,14 @@ footer p{
     .section-title h2{
         font-size:32px;
     }
+
+    .brand-header{
+        padding-left:5px;
+    }
+
+    .brand-header h3{
+        font-size:24px;
+    }
 }
 
 @media(min-width:851px) and (max-width:1100px){
@@ -466,485 +481,409 @@ footer p{
         grid-template-columns:repeat(2,1fr);
     }
 }
-</style>
-</head>
-
-<body>
-
-<header>
-<div class="nav">
-
-    <div class="logo">
-        <div class="logo-icon">M</div>
-        MOTO<span style="color:#008cff">X</span>
-    </div>
-
-    <nav>
-        <a href="#inicio">Inicio</a>
-        <a href="#catalogo">Catálogo</a>
-        <a href="#marcas">Marcas</a>
-    </nav>
-
-    <button class="btn" onclick="document.getElementById('catalogo').scrollIntoView()">
-        Ver motos →
-    </button>
-
-</div>
-</header>
-
-
-<section class="hero" id="inicio">
-
-    <div>
-        <div class="hero-small">MOTORCYCLES • COLOMBIA</div>
-
-        <h1>
-            TU PRÓXIMA<br>
-            <span>MOTO.</span>
-        </h1>
-
-        <p>
-            Explora nuestro catálogo de motocicletas,
-            compara cilindrada, potencia, tecnología y precios
-            en una experiencia diseñada para los amantes de las dos ruedas.
-        </p>
-
-        <div class="hero-buttons">
-            <button class="btn" onclick="document.getElementById('catalogo').scrollIntoView()">
-                Explorar catálogo
-            </button>
-
-            <button class="btn" style="background:#111a2a">
-                Comparar motos
-            </button>
-        </div>
-    </div>
-
-    <div class="hero-bike">
-
-        <div class="glow"></div>
-
-        <img
-        src="https://commons.wikimedia.org/wiki/Special:FilePath/Yamaha%20MT-15.jpg"
-        alt="Motocicleta Yamaha">
-
-    </div>
-
-</section>
-
-
-<div class="stats">
-
-    <div class="stat">
-        <h2>20+</h2>
-        <p>Motocicletas</p>
-    </div>
-
-    <div class="stat">
-        <h2>4</h2>
-        <p>Marcas</p>
-    </div>
-
-    <div class="stat">
-        <h2>100%</h2>
-        <p>Diseño futurista</p>
-    </div>
-
-    <div class="stat">
-        <h2>24/7</h2>
-        <p>Catálogo online</p>
-    </div>
-
+</style></head><body><header>
+<div class="nav"><div class="logo">
+    <div class="logo-icon">M</div>
+    MOTO<span style="color:#008cff">X</span>
 </div>
 
+<nav>
+    <a href="#inicio">Inicio</a>
+    <a href="#catalogo">Catálogo</a>
+    <a href="#marcas">Marcas</a>
+</nav>
 
-<section class="catalog" id="catalogo">
+<button class="btn" onclick="document.getElementById('catalogo').scrollIntoView()">
+    Ver motos →
+</button>
 
-<div class="section-title">
+</div>
+</header><!-- HERO --><section class="hero" id="inicio"><div>
+    <div class="hero-small">MOTORCYCLES • COLOMBIA</div>
 
-    <small>CATÁLOGO 2026 / 2027</small>
-
-    <h2>Encuentra tu máquina</h2>
+    <h1>
+        TU PRÓXIMA<br>
+        <span>MOTO.</span>
+    </h1>
 
     <p>
-        Filtra y descubre motocicletas por marca,
-        cilindrada y precio.
+        Explora nuestro catálogo de motocicletas,
+        compara cilindrada, potencia, tecnología y precios
+        en una experiencia diseñada para los amantes de las dos ruedas.
     </p>
 
-</div>
+    <div class="hero-buttons">
 
+        <button class="btn"
+        onclick="document.getElementById('catalogo').scrollIntoView()">
+            Explorar catálogo
+        </button>
 
-<div class="tools">
+        <button class="btn" style="background:#111a2a"
+        onclick="document.getElementById('catalogo').scrollIntoView()">
+            Comparar motos
+        </button>
 
-    <input
-        class="search"
-        id="search"
-        type="text"
-        placeholder="Buscar moto..."
-        onkeyup="searchMotos()"
-    >
-
-    <select class="filter" id="brandFilter" onchange="filterBrand()">
-        <option value="all">Todas las marcas</option>
-        <option value="Yamaha">Yamaha</option>
-        <option value="Honda">Honda</option>
-        <option value="AKT">AKT</option>
-        <option value="Auteco">Auteco / Bajaj</option>
-    </select>
-
-</div>
-
-
-<div id="marcas">
-
-
-<!-- ================= YAMAHA ================= -->
-
-<div class="brand" data-brand="Yamaha">
-
-<div class="brand-header">
-
-    <div class="brand-logo">YAMAHA</div>
-
-    <div>
-        <h3>Yamaha</h3>
-        <p>Performance • Tecnología • Diseño</p>
     </div>
+</div>
+
+<div class="hero-bike">
+
+    <div class="glow"></div>
+
+    <img src="img/mt15.jpg" alt="Yamaha MT-15">
 
 </div>
 
-<div class="grid">
+</section><!-- ESTADÍSTICAS --><div class="stats"><div class="stat">
+    <h2>18</h2>
+    <p>Motocicletas</p>
+</div>
 
-<div class="card">
+<div class="stat">
+    <h2>4</h2>
+    <p>Marcas</p>
+</div>
+
+<div class="stat">
+    <h2>100%</h2>
+    <p>Diseño futurista</p>
+</div>
+
+<div class="stat">
+    <h2>24/7</h2>
+    <p>Catálogo online</p>
+</div>
+
+</div><!-- CATÁLOGO --><section class="catalog" id="catalogo"><div class="section-title"><small>CATÁLOGO 2026 / 2027</small>
+
+<h2>Encuentra tu máquina</h2>
+
+<p>
+    Filtra y descubre motocicletas por marca,
+    cilindrada y precio.
+</p>
+
+</div><div class="tools"><input
+    class="search"
+    id="search"
+    type="text"
+    placeholder="Buscar moto..."
+    onkeyup="filterMotos()"
+>
+
+<select class="filter" id="brandFilter" onchange="filterMotos()">
+    <option value="all">Todas las marcas</option>
+    <option value="Yamaha">Yamaha</option>
+    <option value="Honda">Honda</option>
+    <option value="AKT">AKT</option>
+    <option value="Auteco">Auteco / Bajaj</option>
+</select>
+
+</div><div id="marcas"><!-- ================= YAMAHA ================= --><div class="brand" data-brand="Yamaha"><div class="brand-header"><div class="brand-logo">
+    <img src="img/yamaha.jpg" alt="Yamaha">
+</div>
+
+<div>
+    <h3>Yamaha</h3>
+    <p>Performance • Tecnología • Diseño</p>
+</div>
+
+</div><div class="grid"><!-- MT-15 --><div class="card" data-name="MT-15 Yamaha">
 <div class="card-image">
 <span class="badge">SPORT</span>
-<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Yamaha%20MT-15.jpg">
-</div>
-<div class="card-content">
-<h4>MT-15</h4>
-<p class="type">Naked deportiva</p>
-<div class="specs">
-<div class="spec"><small>Cilindraje</small><strong>155 cc</strong></div>
-<div class="spec"><small>Potencia</small><strong>18.4 HP</strong></div>
-<div class="spec"><small>Motor</small><strong>1 cilindro</strong></div>
-<div class="spec"><small>Transmisión</small><strong>6 velocidades</strong></div>
-</div>
-<div class="price">Consultar precio</div>
-<button class="btn">Ver ficha</button>
-</div>
-</div>
+<img src="img/mt15.jpg" alt="Yamaha MT-15">
+</div><div class="card-content"><h4>MT-15</h4>
+<p class="type">Naked deportiva</p><div class="specs"><div class="spec">
+<small>Cilindraje</small>
+<strong>155 cc</strong>
+</div><div class="spec">
+<small>Potencia</small>
+<strong>18.4 HP</strong>
+</div><div class="spec">
+<small>Motor</small>
+<strong>1 cilindro</strong>
+</div><div class="spec">
+<small>Transmisión</small>
+<strong>6 velocidades</strong>
+</div></div><div class="price">Consultar precio</div><button class="btn">Ver ficha</button>
 
-
-<div class="card">
+</div>
+</div><!-- FZ25 --><div class="card" data-name="FZ25 Yamaha">
 <div class="card-image">
 <span class="badge">NAKED</span>
-<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Yamaha%20FZ25.jpg">
-</div>
-<div class="card-content">
-<h4>FZ 25</h4>
-<p class="type">Street</p>
-<div class="specs">
-<div class="spec"><small>Cilindraje</small><strong>249 cc</strong></div>
-<div class="spec"><small>Motor</small><strong>1 cilindro</strong></div>
-<div class="spec"><small>Refrigeración</small><strong>Aire</strong></div>
-<div class="spec"><small>Transmisión</small><strong>5 velocidades</strong></div>
-</div>
-<div class="price">Consultar precio</div>
-<button class="btn">Ver ficha</button>
-</div>
-</div>
+<img src="img/fz25.jpg" alt="Yamaha FZ25">
+</div><div class="card-content"><h4>FZ25</h4>
+<p class="type">Street</p><div class="specs"><div class="spec">
+<small>Cilindraje</small>
+<strong>249 cc</strong>
+</div><div class="spec">
+<small>Motor</small>
+<strong>1 cilindro</strong>
+</div><div class="spec">
+<small>Refrigeración</small>
+<strong>Aire</strong>
+</div><div class="spec">
+<small>Transmisión</small>
+<strong>5 velocidades</strong>
+</div></div><div class="price">Consultar precio</div><button class="btn">Ver ficha</button>
 
-
-<div class="card">
+</div>
+</div><!-- XTZ125 --><div class="card" data-name="XTZ125 Yamaha">
 <div class="card-image">
 <span class="badge">ENDURO</span>
-<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Yamaha%20XTZ125.jpg">
-</div>
-<div class="card-content">
-<h4>XTZ 125</h4>
-<p class="type">Doble propósito</p>
-<div class="specs">
-<div class="spec"><small>Cilindraje</small><strong>125 cc</strong></div>
-<div class="spec"><small>Motor</small><strong>4T</strong></div>
-<div class="spec"><small>Arranque</small><strong>Eléctrico</strong></div>
-<div class="spec"><small>Transmisión</small><strong>5 velocidades</strong></div>
-</div>
-<div class="price">Consultar precio</div>
-<button class="btn">Ver ficha</button>
-</div>
-</div>
+<img src="img/xtz125.jpg" alt="Yamaha XTZ125">
+</div><div class="card-content"><h4>XTZ125</h4>
+<p class="type">Doble propósito</p><div class="specs"><div class="spec">
+<small>Cilindraje</small>
+<strong>125 cc</strong>
+</div><div class="spec">
+<small>Motor</small>
+<strong>4T</strong>
+</div><div class="spec">
+<small>Arranque</small>
+<strong>Eléctrico</strong>
+</div><div class="spec">
+<small>Transmisión</small>
+<strong>5 velocidades</strong>
+</div></div><div class="price">Consultar precio</div><button class="btn">Ver ficha</button>
 
-
-<div class="card">
+</div>
+</div><!-- XTZ150 --><div class="card" data-name="XTZ150 Yamaha">
 <div class="card-image">
 <span class="badge">AVENTURA</span>
-<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Yamaha%20XTZ150.jpg">
-</div>
-<div class="card-content">
-<h4>XTZ 150</h4>
-<p class="type">Adventure</p>
-<div class="specs">
-<div class="spec"><small>Cilindraje</small><strong>149 cc</strong></div>
-<div class="spec"><small>Motor</small><strong>4T</strong></div>
-<div class="spec"><small>Combustible</small><strong>Gasolina</strong></div>
-<div class="spec"><small>Transmisión</small><strong>5 velocidades</strong></div>
-</div>
-<div class="price">Consultar precio</div>
-<button class="btn">Ver ficha</button>
-</div>
-</div>
-
-
-<div class="card">
-<div class="card-image">
-<span class="badge">SCOOTER</span>
-<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Yamaha%20NMAX%20155.jpg">
-</div>
-<div class="card-content">
-<h4>NMAX 155</h4>
-<p class="type">Scooter urbano</p>
-<div class="specs">
-<div class="spec"><small>Cilindraje</small><strong>155 cc</strong></div>
-<div class="spec"><small>Motor</small><strong>1 cilindro</strong></div>
-<div class="spec"><small>Refrigeración</small><strong>Líquida</strong></div>
-<div class="spec"><small>Transmisión</small><strong>Automática</strong></div>
-</div>
-<div class="price">Consultar precio</div>
-<button class="btn">Ver ficha</button>
-</div>
-</div>
+<img src="img/xtz150.jpg" alt="Yamaha XTZ150">
+</div><div class="card-content"><h4>XTZ150</h4>
+<p class="type">Adventure</p><div class="specs"><div class="spec">
+<small>Cilindraje</small>
+<strong>149 cc</strong>
+</div><div class="spec">
+<small>Motor</small>
+<strong>4T</strong>
+</div><div class="spec">
+<small>Combustible</small>
+<strong>Gasolina</strong>
+</div><div class="spec">
+<small>Transmisión</small>
+<strong>5 velocidades</strong>
+</div></div><div class="price">Consultar precio</div><button class="btn">Ver ficha</button>
 
 </div>
+</div></div>
+</div><!-- ================= HONDA ================= --><div class="brand" data-brand="Honda"><div class="brand-header"><div class="brand-logo">
+    <img src="img/honda.jpg" alt="Honda">
 </div>
-
-
-<!-- ================= HONDA ================= -->
-
-<div class="brand" data-brand="Honda">
-
-<div class="brand-header">
-
-<div class="brand-logo">HONDA</div>
 
 <div>
-<h3>Honda</h3>
-<p>The Power of Dreams</p>
+    <h3>Honda</h3>
+    <p>The Power of Dreams</p>
 </div>
 
-</div>
-
-<div class="grid">
-
-
-<div class="card">
-<div class="card-image">
+</div><div class="grid"><!-- CB190R --><div class="card" data-name="CB190R 2.0 Honda"><div class="card-image">
 <span class="badge">SPORT</span>
-<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Honda%20CB190R.jpg">
-</div>
-<div class="card-content">
-<h4>CB 190R 2.0</h4>
-<p class="type">Sport / Naked</p>
-<div class="specs">
-<div class="spec"><small>Cilindraje</small><strong>184.4 cc</strong></div>
-<div class="spec"><small>Potencia</small><strong>16.4 HP</strong></div>
-<div class="spec"><small>Torque</small><strong>15.5 Nm</strong></div>
-<div class="spec"><small>Frenos</small><strong>ABS</strong></div>
-</div>
-<div class="price">$12.790.000</div>
-<button class="btn">Ver ficha</button>
-</div>
-</div>
+<img src="img/cb190r20.jpg" alt="Honda CB190R 2.0">
+</div><div class="card-content"><h4>CB190R 2.0</h4>
+<p class="type">Sport / Naked</p><div class="specs"><div class="spec">
+<small>Cilindraje</small>
+<strong>184.4 cc</strong>
+</div><div class="spec">
+<small>Potencia</small>
+<strong>16.4 HP</strong>
+</div><div class="spec">
+<small>Torque</small>
+<strong>15.5 Nm</strong>
+</div><div class="spec">
+<small>Frenos</small>
+<strong>ABS</strong>
+</div></div><div class="price">$12.790.000</div><button class="btn">Ver ficha</button>
 
-
-<div class="card">
-<div class="card-image">
+</div>
+</div><!-- XR150L --><div class="card" data-name="XR150L 2.0 Honda"><div class="card-image">
 <span class="badge">ENDURO</span>
-<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Honda%20XR150L.jpg">
-</div>
-<div class="card-content">
-<h4>XR 150L 2.0</h4>
-<p class="type">Todo terreno</p>
-<div class="specs">
-<div class="spec"><small>Cilindraje</small><strong>149 cc</strong></div>
-<div class="spec"><small>Motor</small><strong>4T</strong></div>
-<div class="spec"><small>Arranque</small><strong>Eléctrico</strong></div>
-<div class="spec"><small>Freno</small><strong>ABS</strong></div>
-</div>
-<div class="price">$10.590.000</div>
-<button class="btn">Ver ficha</button>
-</div>
-</div>
+<img src="img/xr150l20.jpg" alt="Honda XR150L 2.0">
+</div><div class="card-content"><h4>XR150L 2.0</h4>
+<p class="type">Todo terreno</p><div class="specs"><div class="spec">
+<small>Cilindraje</small>
+<strong>149 cc</strong>
+</div><div class="spec">
+<small>Motor</small>
+<strong>4T</strong>
+</div><div class="spec">
+<small>Arranque</small>
+<strong>Eléctrico</strong>
+</div><div class="spec">
+<small>Freno</small>
+<strong>ABS</strong>
+</div></div><div class="price">$10.590.000</div><button class="btn">Ver ficha</button>
 
-
-<div class="card">
-<div class="card-image">
+</div>
+</div><!-- XR190L --><div class="card" data-name="XR190L 2.0 Honda"><div class="card-image">
 <span class="badge">ADVENTURE</span>
-<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Honda%20XR190L.jpg">
-</div>
-<div class="card-content">
-<h4>XR 190L 2.0</h4>
-<p class="type">Todo terreno</p>
-<div class="specs">
-<div class="spec"><small>Cilindraje</small><strong>184 cc</strong></div>
-<div class="spec"><small>Potencia</small><strong>15.6 HP</strong></div>
-<div class="spec"><small>Torque</small><strong>15.7 Nm</strong></div>
-<div class="spec"><small>Freno</small><strong>ABS</strong></div>
-</div>
-<div class="price">$13.900.000</div>
-<button class="btn">Ver ficha</button>
-</div>
-</div>
+<img src="img/xr190l20.jpg" alt="Honda XR190L 2.0">
+</div><div class="card-content"><h4>XR190L 2.0</h4>
+<p class="type">Todo terreno</p><div class="specs"><div class="spec">
+<small>Cilindraje</small>
+<strong>184 cc</strong>
+</div><div class="spec">
+<small>Potencia</small>
+<strong>15.6 HP</strong>
+</div><div class="spec">
+<small>Torque</small>
+<strong>15.7 Nm</strong>
+</div><div class="spec">
+<small>Freno</small>
+<strong>ABS</strong>
+</div></div><div class="price">$13.900.000</div><button class="btn">Ver ficha</button>
 
-
-<div class="card">
-<div class="card-image">
+</div>
+</div><!-- CB300F --><div class="card" data-name="CB300F Honda"><div class="card-image">
 <span class="badge">SPORT</span>
-<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Honda%20CB300F.jpg">
-</div>
-<div class="card-content">
-<h4>CB 300F</h4>
-<p class="type">Street / Sport</p>
-<div class="specs">
-<div class="spec"><small>Cilindraje</small><strong>293 cc</strong></div>
-<div class="spec"><small>Motor</small><strong>4T</strong></div>
-<div class="spec"><small>Transmisión</small><strong>6 velocidades</strong></div>
-<div class="spec"><small>Frenos</small><strong>ABS</strong></div>
-</div>
-<div class="price">$16.800.000</div>
-<button class="btn">Ver ficha</button>
-</div>
-</div>
+<img src="img/cb300f.jpg" alt="Honda CB300F">
+</div><div class="card-content"><h4>CB300F</h4>
+<p class="type">Street / Sport</p><div class="specs"><div class="spec">
+<small>Cilindraje</small>
+<strong>293 cc</strong>
+</div><div class="spec">
+<small>Motor</small>
+<strong>4T</strong>
+</div><div class="spec">
+<small>Transmisión</small>
+<strong>6 velocidades</strong>
+</div><div class="spec">
+<small>Frenos</small>
+<strong>ABS</strong>
+</div></div><div class="price">$16.800.000</div><button class="btn">Ver ficha</button>
 
-
-<div class="card">
-<div class="card-image">
+</div>
+</div><!-- NAVI --><div class="card" data-name="NAVI Honda"><div class="card-image">
 <span class="badge">URBANA</span>
-<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Honda%20Navi.jpg">
-</div>
-<div class="card-content">
-<h4>NAVI</h4>
-<p class="type">Urbana automática</p>
-<div class="specs">
-<div class="spec"><small>Cilindraje</small><strong>109 cc</strong></div>
-<div class="spec"><small>Motor</small><strong>4T</strong></div>
-<div class="spec"><small>Transmisión</small><strong>Automática</strong></div>
-<div class="spec"><small>Arranque</small><strong>Eléctrico</strong></div>
-</div>
-<div class="price">$7.290.000</div>
-<button class="btn">Ver ficha</button>
-</div>
-</div>
+<img src="img/navi.jpg" alt="Honda NAVI">
+</div><div class="card-content"><h4>NAVI</h4>
+<p class="type">Urbana automática</p><div class="specs"><div class="spec">
+<small>Cilindraje</small>
+<strong>109 cc</strong>
+</div><div class="spec">
+<small>Motor</small>
+<strong>4T</strong>
+</div><div class="spec">
+<small>Transmisión</small>
+<strong>Automática</strong>
+</div><div class="spec">
+<small>Arranque</small>
+<strong>Eléctrico</strong>
+</div></div><div class="price">$7.290.000</div><button class="btn">Ver ficha</button>
 
 </div>
+</div></div>
+</div><!-- ================= AKT ================= --><div class="brand" data-brand="AKT"><div class="brand-header"><div class="brand-logo">
+    <img src="img/akt.jpg" alt="AKT">
 </div>
-
-
-<!-- ================= AKT ================= -->
-
-<div class="brand" data-brand="AKT">
-
-<div class="brand-header">
-
-<div class="brand-logo">AKT</div>
 
 <div>
-<h3>AKT</h3>
-<p>Hecha para Colombia</p>
+    <h3>AKT</h3>
+    <p>Hecha para Colombia</p>
 </div>
 
-</div>
-
-<div class="grid">
-
-
-<div class="card">
-<div class="card-image">
+</div><div class="grid"><!-- NKD125 --><div class="card" data-name="NKD 125 AKT"><div class="card-image">
 <span class="badge">CALLE</span>
-<img src="https://commons.wikimedia.org/wiki/Special:FilePath/AKT%20NKD%20125.jpg">
-</div>
-<div class="card-content">
-<h4>NKD 125</h4>
-<p class="type">Street</p>
-<div class="specs">
-<div class="spec"><small>Cilindraje</small><strong>125 cc</strong></div>
-<div class="spec"><small>Motor</small><strong>4T</strong></div>
-<div class="spec"><small>Arranque</small><strong>Eléctrico</strong></div>
-<div class="spec"><small>Transmisión</small><strong>5 velocidades</strong></div>
-</div>
-<div class="price">$4.890.000</div>
-<button class="btn">Ver ficha</button>
-</div>
-</div>
+<img src="img/nkd125.jpg" alt="AKT NKD 125">
+</div><div class="card-content"><h4>NKD 125</h4>
+<p class="type">Street</p><div class="specs"><div class="spec">
+<small>Cilindraje</small>
+<strong>125 cc</strong>
+</div><div class="spec">
+<small>Motor</small>
+<strong>4T</strong>
+</div><div class="spec">
+<small>Arranque</small>
+<strong>Eléctrico</strong>
+</div><div class="spec">
+<small>Transmisión</small>
+<strong>5 velocidades</strong>
+</div></div><div class="price">$4.890.000</div><button class="btn">Ver ficha</button>
 
-
-<div class="card">
-<div class="card-image">
+</div>
+</div><!-- CR4 150 --><div class="card" data-name="CR4 150 AKT"><div class="card-image">
 <span class="badge">STREET</span>
-<img src="https://commons.wikimedia.org/wiki/Special:FilePath/AKT%20CR4.jpg">
-</div>
-<div class="card-content">
-<h4>CR4 150</h4>
-<p class="type">Street deportiva</p>
-<div class="specs">
-<div class="spec"><small>Cilindraje</small><strong>150 cc</strong></div>
-<div class="spec"><small>Motor</small><strong>4T</strong></div>
-<div class="spec"><small>Arranque</small><strong>Eléctrico</strong></div>
-<div class="spec"><small>Transmisión</small><strong>5 velocidades</strong></div>
-</div>
-<div class="price">$6.990.000</div>
-<button class="btn">Ver ficha</button>
-</div>
-</div>
+<img src="img/cr4150.jpg" alt="AKT CR4 150">
+</div><div class="card-content"><h4>CR4 150</h4>
+<p class="type">Street deportiva</p><div class="specs"><div class="spec">
+<small>Cilindraje</small>
+<strong>150 cc</strong>
+</div><div class="spec">
+<small>Motor</small>
+<strong>4T</strong>
+</div><div class="spec">
+<small>Arranque</small>
+<strong>Eléctrico</strong>
+</div><div class="spec">
+<small>Transmisión</small>
+<strong>5 velocidades</strong>
+</div></div><div class="price">$6.990.000</div><button class="btn">Ver ficha</button>
 
-
-<div class="card">
-<div class="card-image">
+</div>
+</div><!-- TTR200 --><div class="card" data-name="TTR 200 AKT"><div class="card-image">
 <span class="badge">ADVENTURE</span>
-<img src="https://commons.wikimedia.org/wiki/Special:FilePath/AKT%20TT%20200.jpg">
-</div>
-<div class="card-content">
-<h4>TT 200</h4>
-<p class="type">Doble propósito</p>
-<div class="specs">
-<div class="spec"><small>Cilindraje</small><strong>197 cc</strong></div>
-<div class="spec"><small>Motor</small><strong>4T</strong></div>
-<div class="spec"><small>Arranque</small><strong>Eléctrico</strong></div>
-<div class="spec"><small>Transmisión</small><strong>5 velocidades</strong></div>
-</div>
-<div class="price">$9.190.000</div>
-<button class="btn">Ver ficha</button>
-</div>
-</div>
+<img src="img/ttr200.jpg" alt="AKT TTR 200">
+</div><div class="card-content"><h4>TTR 200</h4>
+<p class="type">Doble propósito</p><div class="specs"><div class="spec">
+<small>Cilindraje</small>
+<strong>200 cc</strong>
+</div><div class="spec">
+<small>Motor</small>
+<strong>4T</strong>
+</div><div class="spec">
+<small>Arranque</small>
+<strong>Eléctrico</strong>
+</div><div class="spec">
+<small>Transmisión</small>
+<strong>5 velocidades</strong>
+</div></div><div class="price">$9.190.000</div><button class="btn">Ver ficha</button>
 
-
-<div class="card">
-<div class="card-image">
-<span class="badge">SCOOTER</span>
-<img src="https://commons.wikimedia.org/wiki/Special:FilePath/AKT%20Dynamic.jpg">
 </div>
-<div class="card-content">
-<h4>Dynamic RX FI</h4>
-<p class="type">Scooter</p>
-<div class="specs">
-<div class="spec"><small>Cilindraje</small><strong>125 cc</strong></div>
-<div class="spec"><small>Alimentación</small><strong>Inyección</strong></div>
-<div class="spec"><small>Transmisión</small><strong>CVT</strong></div>
-<div class="spec"><small>Arranque</small><strong>Eléctrico</strong></div>
-</div>
-<div class="price">$9.490.000</div>
-<button class="btn">Ver ficha</button>
-</div>
-</div>
-
-
-<div class="card">
-<div class="card-image">
+</div><!-- CR4 200 PRO --><div class="card" data-name="CR4 200 Pro AKT"><div class="card-image">
 <span class="badge">ENDURO</span>
-<img src="https://commons.wikimedia.org/wiki/Special:FilePath/AKT%20TTR%20200.jpg">
+<img src="img/cr4200pro.jpg" alt="AKT CR4 200 Pro">
+</div><div class="card-content"><h4>CR4 200 Pro</h4>
+<p class="type">Enduro / Street</p><div class="specs"><div class="spec">
+<small>Cilindraje</small>
+<strong>200 cc</strong>
+</div><div class="spec">
+<small>Motor</small>
+<strong>4T</strong>
+</div><div class="spec">
+<small>Arranque</small>
+<strong>Eléctrico</strong>
+</div><div class="spec">
+<small>Transmisión</small>
+<strong>6 velocidades</strong>
+</div></div><div class="price">$9.990.000</div><button class="btn">Ver ficha</button>
+
 </div>
-<div class="card-content">
-<h4>TTR 200</h4>
-<p class="type">Enduro</p>
-<div class="specs">
-<div class="spec"><small>Cilindraje</small><strong>200 cc</strong></div>
-<di
+</div></div>
+</div><!-- ================= AUTECO / BAJAJ ================= --><div class="brand" data-brand="Auteco"><div class="brand-header"><div class="brand-logo">
+    <img src="img/auteco.jpg" alt="Auteco">
+</div>
+
+<div>
+    <h3>Auteco / Bajaj</h3>
+    <p>Potencia • Tecnología • Rendimiento</p>
+</div>
+
+</div><div class="grid"><!-- PULSAR NS200 --><div class="card" data-name="Pulsar NS200 Auteco Bajaj"><div class="card-image">
+<span class="badge">SPORT</span>
+<img src="img/pulsarns200.jpg" alt="Bajaj Pulsar NS200">
+</div><div class="card-content"><h4>Pulsar NS200</h4>
+<p class="type">Naked deportiva</p><div class="specs"><div class="spec">
+<small>Cilindraje</small>
+<strong>199.5 cc</strong>
+</div><div class="spec">
+<small>Potencia</small>
+<strong>24.5 HP</strong>
+</div><div class="spec">
+<small>Motor</small>
+<strong>4T</strong>
+</div><div class="spec">
+<small>Transmisión</small>
+<strong>6 velocidades</strong>
+</div></div
