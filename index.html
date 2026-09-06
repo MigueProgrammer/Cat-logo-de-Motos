@@ -1,470 +1,950 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MotoLab | Catálogo Futurista</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-main: #070b14;
-            --bg-secondary: #0d1627;
-            --primary-blue: #0066ff;
-            --glow-blue: #00d4ff;
-            --text-main: #ffffff;
-            --text-muted: #8b9bb4;
-            --glass-bg: rgba(13, 22, 39, 0.75);
-            --glass-border: rgba(0, 212, 255, 0.2);
-            --card-hover: rgba(0, 102, 255, 0.25);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
+<title>MOTOX | Catálogo de Motos</title>
 
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(0, 102, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 85% 30%, rgba(0, 212, 255, 0.08) 0%, transparent 50%);
-            background-attachment: fixed;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-        header {
-            padding: 40px 20px 20px;
-            text-align: center;
-        }
+html{
+    scroll-behavior:smooth;
+}
 
-        .subtitle {
-            color: var(--glow-blue);
-            font-size: 13px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 12px;
-            display: inline-block;
-            border-bottom: 1px solid var(--primary-blue);
-            padding-bottom: 4px;
-        }
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#050914;
+    color:white;
+    overflow-x:hidden;
+}
 
-        h1 {
-            font-size: 38px;
-            font-weight: 800;
-            margin-bottom: 15px;
-            background: linear-gradient(90deg, #fff, var(--glow-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+body:before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+    radial-gradient(circle at 20% 10%,rgba(0,110,255,.18),transparent 30%),
+    radial-gradient(circle at 90% 40%,rgba(0,170,255,.12),transparent 30%);
+    pointer-events:none;
+    z-index:-1;
+}
 
-        .hero-desc {
-            color: var(--text-muted);
-            font-size: 15px;
-            max-width: 600px;
-            margin: 0 auto 30px;
-            line-height: 1.6;
-        }
+/* NAVBAR */
 
-        .filters {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 35px;
-            flex-wrap: wrap;
-            padding: 0 10px;
-        }
+header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    backdrop-filter:blur(18px);
+    background:rgba(4,9,20,.85);
+    border-bottom:1px solid rgba(0,150,255,.2);
+}
 
-        .filter-btn {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            color: var(--text-muted);
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+.nav{
+    max-width:1200px;
+    margin:auto;
+    height:75px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 20px;
+}
 
-        .filter-btn:hover {
-            border-color: var(--primary-blue);
-            color: #fff;
-        }
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:23px;
+    font-weight:bold;
+}
 
-        .filter-btn.active {
-            background: linear-gradient(135deg, var(--primary-blue), var(--glow-blue));
-            color: #fff;
-            border-color: transparent;
-            box-shadow: 0 6px 18px rgba(0, 102, 255, 0.4);
-        }
+.logo-icon{
+    width:40px;
+    height:40px;
+    border:3px solid #008cff;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#00aaff;
+    box-shadow:0 0 20px rgba(0,140,255,.5);
+}
 
-        .catalog-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px 60px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-            gap: 25px;
-        }
+nav a{
+    color:#aaa;
+    text-decoration:none;
+    margin-left:25px;
+    font-size:14px;
+}
 
-        .moto-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            overflow: hidden;
-            backdrop-filter: blur(12px);
-            transition: all 0.3s ease;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            z-index: 1;
-        }
+nav a:hover{
+    color:#00aaff;
+}
 
-        .moto-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--glow-blue);
-            box-shadow: 0 12px 25px var(--card-hover);
-        }
+.btn{
+    background:linear-gradient(90deg,#006cff,#00baff);
+    color:white;
+    border:none;
+    padding:13px 22px;
+    border-radius:30px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 0 25px rgba(0,140,255,.35);
+}
 
-        .img-container {
-            width: 100%;
-            height: 190px;
-            overflow: hidden;
-            background: #000;
-            position: relative;
-        }
+/* HERO */
 
-        .img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-            opacity: 0.9;
-        }
+.hero{
+    min-height:650px;
+    max-width:1200px;
+    margin:auto;
+    padding:90px 25px 60px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    align-items:center;
+    gap:30px;
+}
 
-        .moto-card:hover .img-container img {
-            transform: scale(1.06);
-            opacity: 1;
-        }
+.hero-small{
+    color:#008cff;
+    font-size:18px;
+    letter-spacing:4px;
+    margin-bottom:15px;
+}
 
-        .card-content {
-            padding: 18px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            pointer-events: none;
-        }
+.hero h1{
+    font-size:clamp(45px,7vw,82px);
+    line-height:.95;
+    margin-bottom:25px;
+}
 
-        .moto-title {
-            font-size: 18px;
-            font-weight: 800;
-            margin-bottom: 4px;
-            color: #fff;
-        }
+.hero h1 span{
+    color:#008cff;
+    text-shadow:0 0 30px rgba(0,140,255,.7);
+}
 
-        .moto-price {
-            color: var(--glow-blue);
-            font-size: 17px;
-            font-weight: 800;
-            margin-bottom: 15px;
-        }
+.hero p{
+    color:#9ca6b8;
+    font-size:18px;
+    line-height:1.7;
+    max-width:550px;
+}
 
-        .specs-mini {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-bottom: 15px;
-            flex-grow: 1;
-        }
+.hero-buttons{
+    margin-top:30px;
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
 
-        .spec-item {
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 8px;
-            padding: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-        }
+.hero-bike{
+    position:relative;
+}
 
-        .spec-item span {
-            display: block;
-            color: var(--text-muted);
-            margin-bottom: 2px;
-            font-size: 10px;
-            text-transform: uppercase;
-        }
+.hero-bike img{
+    width:100%;
+    max-height:470px;
+    object-fit:contain;
+    filter:drop-shadow(0 0 35px rgba(0,130,255,.35));
+}
 
-        .spec-item strong {
-            color: #fff;
-            font-size: 11px;
-        }
+.glow{
+    position:absolute;
+    width:300px;
+    height:120px;
+    background:#008cff;
+    filter:blur(100px);
+    opacity:.18;
+    bottom:20px;
+    left:20%;
+}
 
-        .btn-view {
-            width: 100%;
-            padding: 12px;
-            background: rgba(0, 102, 255, 0.15);
-            border: 1px solid var(--primary-blue);
-            color: var(--glow-blue);
-            border-radius: 12px;
-            font-weight: 700;
-            text-align: center;
-            font-size: 13px;
-        }
+/* STATS */
 
-        .moto-card:hover .btn-view {
-            background: linear-gradient(135deg, var(--primary-blue), var(--glow-blue));
-            color: #fff;
-            border-color: transparent;
-        }
+.stats{
+    max-width:1100px;
+    margin:20px auto 80px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    background:rgba(255,255,255,.035);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:20px;
+    overflow:hidden;
+}
 
-        /* MODAL */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(5, 11, 20, 0.88);
-            backdrop-filter: blur(10px);
-            z-index: 9999;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+.stat{
+    padding:25px;
+    text-align:center;
+    border-right:1px solid rgba(255,255,255,.08);
+}
 
-        .modal-overlay.active {
-            display: flex;
-        }
+.stat:last-child{
+    border:0;
+}
 
-        .modal-content {
-            background: var(--bg-secondary);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            width: 100%;
-            max-width: 850px;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.9);
-            display: flex;
-            flex-direction: column;
-        }
+.stat h2{
+    color:#00aaff;
+    font-size:30px;
+}
 
-        @media (min-width: 768px) {
-            .modal-content {
-                flex-direction: row;
-            }
-        }
+.stat p{
+    color:#8994a8;
+    margin-top:6px;
+}
 
-        .btn-close {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(255, 255, 255, 0.15);
-            border: none;
-            color: #fff;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            font-size: 18px;
-            cursor: pointer;
-            z-index: 10;
-        }
+/* CATALOG */
 
-        .btn-close:hover {
-            background: var(--primary-blue);
-        }
+.catalog{
+    max-width:1200px;
+    margin:auto;
+    padding:20px;
+}
 
-        .modal-img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-        }
+.section-title{
+    text-align:center;
+    margin-bottom:45px;
+}
 
-        @media (min-width: 768px) {
-            .modal-img {
-                width: 48%;
-                height: auto;
-            }
-        }
+.section-title small{
+    color:#008cff;
+    letter-spacing:4px;
+}
 
-        .modal-info {
-            padding: 30px 25px;
-            flex: 1;
-        }
+.section-title h2{
+    font-size:42px;
+    margin-top:10px;
+}
 
-        .modal-info h2 {
-            font-size: 28px;
-            font-weight: 800;
-            margin-bottom: 5px;
-            color: #fff;
-        }
+.section-title p{
+    color:#8c97a9;
+    margin-top:10px;
+}
 
-        .modal-info .price {
-            font-size: 22px;
-            color: var(--glow-blue);
-            font-weight: 800;
-            margin-bottom: 20px;
-        }
+/* BRAND */
 
-        .specs-grid-full {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 20px;
-        }
+.brand{
+    margin-bottom:75px;
+}
 
-        .desc-text {
-            color: var(--text-muted);
-            line-height: 1.6;
-            font-size: 13px;
-            margin-bottom: 25px;
-            padding-left: 12px;
-            border-left: 3px solid var(--primary-blue);
-        }
+.brand-header{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin-bottom:25px;
+}
 
-        .btn-ws {
-            display: block;
-            text-align: center;
-            background: linear-gradient(135deg, var(--primary-blue), var(--glow-blue));
-            color: #fff;
-            padding: 14px;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 700;
-            text-decoration: none;
-            box-shadow: 0 8px 20px var(--card-hover);
-        }
-    </style>
+.brand-logo{
+    width:58px;
+    height:58px;
+    border-radius:16px;
+    background:#101827;
+    border:1px solid rgba(0,150,255,.3);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    color:#00aaff;
+    font-size:14px;
+}
+
+.brand-header h3{
+    font-size:28px;
+}
+
+.brand-header p{
+    color:#7f8a9e;
+    font-size:13px;
+}
+
+/* CARDS */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.card{
+    background:linear-gradient(
+        145deg,
+        rgba(255,255,255,.07),
+        rgba(255,255,255,.025)
+    );
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:22px;
+    overflow:hidden;
+    transition:.35s;
+    position:relative;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    border-color:#008cff;
+    box-shadow:0 15px 50px rgba(0,120,255,.18);
+}
+
+.card-image{
+    height:220px;
+    background:radial-gradient(circle,#172941,#070c16 70%);
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.card-image img{
+    width:92%;
+    height:92%;
+    object-fit:contain;
+    transition:.4s;
+}
+
+.card:hover .card-image img{
+    transform:scale(1.05);
+}
+
+.badge{
+    position:absolute;
+    top:14px;
+    left:14px;
+    background:#008cff;
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.card-content{
+    padding:20px;
+}
+
+.card-content h4{
+    font-size:22px;
+    margin-bottom:8px;
+}
+
+.type{
+    color:#758196;
+    font-size:13px;
+    margin-bottom:18px;
+}
+
+.specs{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+    margin-bottom:20px;
+}
+
+.spec{
+    background:rgba(255,255,255,.04);
+    padding:10px;
+    border-radius:10px;
+}
+
+.spec small{
+    color:#6d788a;
+    display:block;
+    font-size:10px;
+}
+
+.spec strong{
+    font-size:13px;
+}
+
+.price{
+    color:#00aaff;
+    font-size:21px;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.card button{
+    width:100%;
+}
+
+/* SEARCH */
+
+.tools{
+    max-width:1000px;
+    margin:0 auto 45px;
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.search{
+    flex:1;
+    min-width:220px;
+    background:#0b1321;
+    color:white;
+    border:1px solid #1c3048;
+    padding:15px 18px;
+    border-radius:30px;
+    outline:none;
+}
+
+.filter{
+    background:#0b1321;
+    color:white;
+    border:1px solid #1c3048;
+    padding:0 20px;
+    border-radius:30px;
+}
+
+/* FOOTER */
+
+footer{
+    margin-top:80px;
+    padding:55px 20px;
+    text-align:center;
+    background:#030711;
+    border-top:1px solid rgba(0,140,255,.15);
+}
+
+footer h2{
+    color:#00aaff;
+    margin-bottom:10px;
+}
+
+footer p{
+    color:#687386;
+}
+
+/* MOBILE */
+
+@media(max-width:850px){
+
+    nav{
+        display:none;
+    }
+
+    .hero{
+        grid-template-columns:1fr;
+        text-align:center;
+        padding-top:60px;
+    }
+
+    .hero p{
+        margin:auto;
+    }
+
+    .hero-buttons{
+        justify-content:center;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+        margin:20px;
+    }
+
+    .stat:nth-child(2){
+        border-right:0;
+    }
+
+    .stat:nth-child(-n+2){
+        border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .section-title h2{
+        font-size:32px;
+    }
+}
+
+@media(min-width:851px) and (max-width:1100px){
+    .grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+</style>
 </head>
+
 <body>
 
-    <header>
-        <span class="subtitle">Digital Performance</span>
-        <h1>Catálogo Inteligente</h1>
-        <p class="hero-desc">Explora el rendimiento, diseño y especificaciones técnicas de las mejores máquinas del mercado. Selecciona una marca para comenzar.</p>
-        
-        <div class="filters">
-            <button class="filter-btn active" onclick="filterBrand('all', this)">Todas</button>
-            <button class="filter-btn" onclick="filterBrand('Yamaha', this)">Yamaha</button>
-            <button class="filter-btn" onclick="filterBrand('Honda', this)">Honda</button>
-            <button class="filter-btn" onclick="filterBrand('AKT', this)">AKT</button>
-            <button class="filter-btn" onclick="filterBrand('Auteco', this)">Auteco</button>
-        </div>
-    </header>
+<header>
+<div class="nav">
 
-    <main class="catalog-container" id="catalogGrid"></main>
+    <div class="logo">
+        <div class="logo-icon">M</div>
+        MOTO<span style="color:#008cff">X</span>
+    </div>
 
-    <div class="modal-overlay" id="motoModal">
-        <div class="modal-content">
-            <button class="btn-close" onclick="closeModal()">✕</button>
-            <img id="mImg" class="modal-img" src="" alt="Moto">
-            <div class="modal-info">
-                <h2 id="mTitle">Nombre Moto</h2>
-                <div class="price" id="mPrice">$0 COP</div>
-                
-                <div class="specs-grid-full">
-                    <div class="spec-item">
-                        <span>Cilindrada</span>
-                        <strong id="mCc">-</strong>
-                    </div>
-                    <div class="spec-item">
-                        <span>Potencia</span>
-                        <strong id="mHp">-</strong>
-                    </div>
-                    <div class="spec-item">
-                        <span>Torque</span>
-                        <strong id="mTorque">-</strong>
-                    </div>
-                    <div class="spec-item">
-                        <span>Peso</span>
-                        <strong id="mWeight">-</strong>
-                    </div>
-                </div>
+    <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#marcas">Marcas</a>
+    </nav>
 
-                <p class="desc-text" id="mDesc">Descripción...</p>
+    <button class="btn" onclick="document.getElementById('catalogo').scrollIntoView()">
+        Ver motos →
+    </button>
 
-                <a href="#" id="mWsBtn" target="_blank" class="btn-ws">Solicitar Cotización 📲</a>
-            </div>
+</div>
+</header>
+
+
+<section class="hero" id="inicio">
+
+    <div>
+        <div class="hero-small">MOTORCYCLES • COLOMBIA</div>
+
+        <h1>
+            TU PRÓXIMA<br>
+            <span>MOTO.</span>
+        </h1>
+
+        <p>
+            Explora nuestro catálogo de motocicletas,
+            compara cilindrada, potencia, tecnología y precios
+            en una experiencia diseñada para los amantes de las dos ruedas.
+        </p>
+
+        <div class="hero-buttons">
+            <button class="btn" onclick="document.getElementById('catalogo').scrollIntoView()">
+                Explorar catálogo
+            </button>
+
+            <button class="btn" style="background:#111a2a">
+                Comparar motos
+            </button>
         </div>
     </div>
 
-    <script>
-        const motosData = [
-            { id: 1, brand: 'Yamaha', title: 'MT-09', price: '$62.500.000 COP', cc: '890 cc', hp: '117.3 HP', torque: '93 Nm', weight: '189 kg', desc: 'La Hyper Naked por excelencia con motor CP3 de 890 cc y electrónica avanzada.', img: 'https://images.unsplash.com/photo-1609630875171-b1321377ee65?w=800&auto=format&fit=crop' },
-            { id: 2, brand: 'Yamaha', title: 'YZF-R6', price: '$85.000.000 COP', cc: '599 cc', hp: '116.8 HP', torque: '61.7 Nm', weight: '190 kg', desc: 'Supersport de alta revolución diseñada para dominar los circuitos de carreras.', img: 'https://images.unsplash.com/photo-1599557434967-0c7f21609462?w=800&auto=format&fit=crop' },
-            { id: 3, brand: 'Yamaha', title: 'FZ-25', price: '$15.200.000 COP', cc: '249 cc', hp: '20.6 HP', torque: '20.1 Nm', weight: '149 kg', desc: 'Naked urbana ágil con tecnología Blue Core y frenos ABS de doble canal.', img: 'https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=800&auto=format&fit=crop' },
-            { id: 4, brand: 'Yamaha', title: 'NMAX Connected', price: '$16.500.000 COP', cc: '155 cc', hp: '15.1 HP', torque: '13.9 Nm', weight: '131 kg', desc: 'Scooter automatizada con sistema Y-Connect, VVA y gran confort urbano.', img: 'https://images.unsplash.com/photo-1621245038318-77b312db2e65?w=800&auto=format&fit=crop' },
-            { id: 5, brand: 'Yamaha', title: 'XTZ 150', price: '$12.400.000 COP', cc: '149 cc', hp: '12.3 HP', torque: '13.1 Nm', weight: '131 kg', desc: 'Doble propósito polivalente con inyección electrónica y suspensión de largo recorrido.', img: 'https://images.unsplash.com/photo-1619862223847-1901cd3a28f8?w=800&auto=format&fit=crop' },
+    <div class="hero-bike">
 
-            { id: 6, brand: 'Honda', title: 'CBR1000RR-R Fireblade', price: '$135.000.000 COP', cc: '999 cc', hp: '214 HP', torque: '113 Nm', weight: '201 kg', desc: 'Superbike nacida de la tecnología HRC de MotoGP para pista.', img: 'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=800&auto=format&fit=crop' },
-            { id: 7, brand: 'Honda', title: 'CB500X', price: '$36.900.000 COP', cc: '471 cc', hp: '47 HP', torque: '43 Nm', weight: '199 kg', desc: 'Adventure ligera bicilíndrica apta para viajes en todo tipo de terreno.', img: 'https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?w=800&auto=format&fit=crop' },
-            { id: 8, brand: 'Honda', title: 'XR 190L', price: '$13.200.000 COP', cc: '184 cc', hp: '15.6 HP', torque: '15.7 Nm', weight: '133 kg', desc: 'Resistente todo terreno con inyección electrónica PGM-FI.', img: 'https://images.unsplash.com/photo-1522064971842-83b51dff6f12?w=800&auto=format&fit=crop' },
-            { id: 9, brand: 'Honda', title: 'CB 125F', price: '$6.800.000 COP', cc: '124.7 cc', hp: '8.4 HP', torque: '9.6 Nm', weight: '117 kg', desc: 'Excelente opción urbana con gran eficiencia de combustible y durabilidad.', img: 'https://images.unsplash.com/photo-1558980664-769d59546b3d?w=800&auto=format&fit=crop' },
-            { id: 10, brand: 'Honda', title: 'Navi 110', price: '$5.600.000 COP', cc: '109 cc', hp: '7.8 HP', torque: '8.9 Nm', weight: '101 kg', desc: 'Diseño automático compacto, divertido y versátil para desplazamientos rápidos.', img: 'https://images.unsplash.com/photo-1558981420-c532902e58b4?w=800&auto=format&fit=crop' },
+        <div class="glow"></div>
 
-            { id: 11, brand: 'AKT', title: 'NKD 125', price: '$5.490.000 COP', cc: '124 cc', hp: '10.34 HP', torque: '9.3 Nm', weight: '98 kg', desc: 'La moto más vendida para trabajo y ciudad con excelente relación peso-potencia.', img: 'https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=800&auto=format&fit=crop' },
-            { id: 12, brand: 'AKT', title: 'CR4 162', price: '$6.690.000 COP', cc: '161.5 cc', hp: '12 HP', torque: '12 Nm', weight: '122 kg', desc: 'Diseño deportivo naked con luces LED y motor UNICAM eficiente.', img: 'https://images.unsplash.com/photo-1449426468159-d96bd37d6207?w=800&auto=format&fit=crop' },
-            { id: 13, brand: 'AKT', title: 'TT 200 DS', price: '$8.590.000 COP', cc: '197 cc', hp: '16.5 HP', torque: '15.5 Nm', weight: '120 kg', desc: 'Motos de aventura con frenos de disco y suspensión reforzada para trocha.', img: 'https://images.unsplash.com/photo-1571401834311-66795f577eb0?w=800&auto=format&fit=crop' },
-            { id: 14, brand: 'AKT', title: 'Dynamic Pro 125', price: '$6.190.000 COP', cc: '124.6 cc', hp: '8.9 HP', torque: '8.6 Nm', weight: '105 kg', desc: 'Scooter automático con estética moderna y almacenamiento amplio.', img: 'https://images.unsplash.com/photo-1563148113-176378e91967?w=800&auto=format&fit=crop' },
-            { id: 15, brand: 'AKT', title: 'TTR 200', price: '$8.190.000 COP', cc: '197 cc', hp: '16.5 HP', torque: '15.5 Nm', weight: '120 kg', desc: 'Chasis robusto y fuerza en bajas revoluciones para terrenos difíciles.', img: 'https://images.unsplash.com/photo-1473281223961-399a9a3b6f26?w=800&auto=format&fit=crop' },
+        <img
+        src="https://commons.wikimedia.org/wiki/Special:FilePath/Yamaha%20MT-15.jpg"
+        alt="Motocicleta Yamaha">
 
-            { id: 16, brand: 'Auteco', title: 'Pulsar NS 200 FI', price: '$11.699.000 COP', cc: '199.5 cc', hp: '24.12 HP', torque: '18.6 Nm', weight: '158 kg', desc: 'Potencia de triple bujía con refrigeración líquida y frenos ABS.', img: 'https://images.unsplash.com/photo-1599819811279-d5ad9cccf838?w=800&auto=format&fit=crop' },
-            { id: 17, brand: 'Auteco', title: 'Dominar 400 UG', price: '$18.499.000 COP', cc: '373.3 cc', hp: '39.4 HP', torque: '35 Nm', weight: '193 kg', desc: 'Sports Tourer con horquilla invertida y confort para largas distancias.', img: 'https://images.unsplash.com/photo-1558981420-c532902e58b4?w=800&auto=format&fit=crop' },
-            { id: 18, brand: 'Auteco', title: 'Boxer CT 125', price: '$5.890.000 COP', cc: '124.4 cc', hp: '9.8 HP', torque: '10.9 Nm', weight: '123 kg', desc: 'Reina del trabajo pesado, chasis robusto y gran ahorro de gasolina.', img: 'https://images.unsplash.com/photo-1609630875171-b1321377ee65?w=800&auto=format&fit=crop' },
-            { id: 19, brand: 'Auteco', title: 'KTM Duke 390', price: '$30.990.000 COP', cc: '373 cc', hp: '43 HP', torque: '37 Nm', weight: '150 kg', desc: 'Naked radical con chasis multitubular y pantalla TFT interactiva.', img: 'https://images.unsplash.com/photo-1629854746408-2e06f9d375a0?w=800&auto=format&fit=crop' },
-            { id: 20, brand: 'Auteco', title: 'TVS Apache RTR 200', price: '$11.299.000 COP', cc: '197.7 cc', hp: '20.5 HP', torque: '17.25 Nm', weight: '152 kg', desc: 'Modos de manejo, suspensión Showa y telemetría de carrera SmartXonnect.', img: 'https://images.unsplash.com/photo-1568285552309-847e0cbab3bc?w=800&auto=format&fit=crop' }
-        ];
+    </div>
 
-        const grid = document.getElementById('catalogGrid');
+</section>
 
-        function renderCatalog(filter) {
-            grid.innerHTML = '';
-            const filtered = filter === 'all' ? motosData : motosData.filter(m => m.brand === filter);
 
-            filtered.forEach(moto => {
-                const card = document.createElement('div');
-                card.className = 'moto-card';
-                card.setAttribute('onclick', `openModal(${moto.id})`);
-                
-                card.innerHTML = `
-                    <div class="img-container">
-                        <img src="${moto.img}" alt="${moto.title}">
-                    </div>
-                    <div class="card-content">
-                        <div class="moto-title">${moto.title}</div>
-                        <div class="moto-price">${moto.price}</div>
-                        <div class="specs-mini">
-                            <div class="spec-item">
-                                <span>Cilindrada</span>
-                                <strong>${moto.cc}</strong>
-                            </div>
-                            <div class="spec-item">
-                                <span>Potencia</span>
-                                <strong>${moto.hp}</strong>
-                            </div>
-                        </div>
-                        <div class="btn-view">Ver Detalle</div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
+<div class="stats">
 
-        function filterBrand(brand, btn) {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            renderCatalog(brand);
-        }
+    <div class="stat">
+        <h2>20+</h2>
+        <p>Motocicletas</p>
+    </div>
 
-        function openModal(id) {
-            const moto = motosData.find(m => m.id === id);
-            if(!moto) return;
+    <div class="stat">
+        <h2>4</h2>
+        <p>Marcas</p>
+    </div>
 
-            document.getElementById('mImg').s
+    <div class="stat">
+        <h2>100%</h2>
+        <p>Diseño futurista</p>
+    </div>
+
+    <div class="stat">
+        <h2>24/7</h2>
+        <p>Catálogo online</p>
+    </div>
+
+</div>
+
+
+<section class="catalog" id="catalogo">
+
+<div class="section-title">
+
+    <small>CATÁLOGO 2026 / 2027</small>
+
+    <h2>Encuentra tu máquina</h2>
+
+    <p>
+        Filtra y descubre motocicletas por marca,
+        cilindrada y precio.
+    </p>
+
+</div>
+
+
+<div class="tools">
+
+    <input
+        class="search"
+        id="search"
+        type="text"
+        placeholder="Buscar moto..."
+        onkeyup="searchMotos()"
+    >
+
+    <select class="filter" id="brandFilter" onchange="filterBrand()">
+        <option value="all">Todas las marcas</option>
+        <option value="Yamaha">Yamaha</option>
+        <option value="Honda">Honda</option>
+        <option value="AKT">AKT</option>
+        <option value="Auteco">Auteco / Bajaj</option>
+    </select>
+
+</div>
+
+
+<div id="marcas">
+
+
+<!-- ================= YAMAHA ================= -->
+
+<div class="brand" data-brand="Yamaha">
+
+<div class="brand-header">
+
+    <div class="brand-logo">YAMAHA</div>
+
+    <div>
+        <h3>Yamaha</h3>
+        <p>Performance • Tecnología • Diseño</p>
+    </div>
+
+</div>
+
+<div class="grid">
+
+<div class="card">
+<div class="card-image">
+<span class="badge">SPORT</span>
+<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Yamaha%20MT-15.jpg">
+</div>
+<div class="card-content">
+<h4>MT-15</h4>
+<p class="type">Naked deportiva</p>
+<div class="specs">
+<div class="spec"><small>Cilindraje</small><strong>155 cc</strong></div>
+<div class="spec"><small>Potencia</small><strong>18.4 HP</strong></div>
+<div class="spec"><small>Motor</small><strong>1 cilindro</strong></div>
+<div class="spec"><small>Transmisión</small><strong>6 velocidades</strong></div>
+</div>
+<div class="price">Consultar precio</div>
+<button class="btn">Ver ficha</button>
+</div>
+</div>
+
+
+<div class="card">
+<div class="card-image">
+<span class="badge">NAKED</span>
+<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Yamaha%20FZ25.jpg">
+</div>
+<div class="card-content">
+<h4>FZ 25</h4>
+<p class="type">Street</p>
+<div class="specs">
+<div class="spec"><small>Cilindraje</small><strong>249 cc</strong></div>
+<div class="spec"><small>Motor</small><strong>1 cilindro</strong></div>
+<div class="spec"><small>Refrigeración</small><strong>Aire</strong></div>
+<div class="spec"><small>Transmisión</small><strong>5 velocidades</strong></div>
+</div>
+<div class="price">Consultar precio</div>
+<button class="btn">Ver ficha</button>
+</div>
+</div>
+
+
+<div class="card">
+<div class="card-image">
+<span class="badge">ENDURO</span>
+<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Yamaha%20XTZ125.jpg">
+</div>
+<div class="card-content">
+<h4>XTZ 125</h4>
+<p class="type">Doble propósito</p>
+<div class="specs">
+<div class="spec"><small>Cilindraje</small><strong>125 cc</strong></div>
+<div class="spec"><small>Motor</small><strong>4T</strong></div>
+<div class="spec"><small>Arranque</small><strong>Eléctrico</strong></div>
+<div class="spec"><small>Transmisión</small><strong>5 velocidades</strong></div>
+</div>
+<div class="price">Consultar precio</div>
+<button class="btn">Ver ficha</button>
+</div>
+</div>
+
+
+<div class="card">
+<div class="card-image">
+<span class="badge">AVENTURA</span>
+<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Yamaha%20XTZ150.jpg">
+</div>
+<div class="card-content">
+<h4>XTZ 150</h4>
+<p class="type">Adventure</p>
+<div class="specs">
+<div class="spec"><small>Cilindraje</small><strong>149 cc</strong></div>
+<div class="spec"><small>Motor</small><strong>4T</strong></div>
+<div class="spec"><small>Combustible</small><strong>Gasolina</strong></div>
+<div class="spec"><small>Transmisión</small><strong>5 velocidades</strong></div>
+</div>
+<div class="price">Consultar precio</div>
+<button class="btn">Ver ficha</button>
+</div>
+</div>
+
+
+<div class="card">
+<div class="card-image">
+<span class="badge">SCOOTER</span>
+<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Yamaha%20NMAX%20155.jpg">
+</div>
+<div class="card-content">
+<h4>NMAX 155</h4>
+<p class="type">Scooter urbano</p>
+<div class="specs">
+<div class="spec"><small>Cilindraje</small><strong>155 cc</strong></div>
+<div class="spec"><small>Motor</small><strong>1 cilindro</strong></div>
+<div class="spec"><small>Refrigeración</small><strong>Líquida</strong></div>
+<div class="spec"><small>Transmisión</small><strong>Automática</strong></div>
+</div>
+<div class="price">Consultar precio</div>
+<button class="btn">Ver ficha</button>
+</div>
+</div>
+
+</div>
+</div>
+
+
+<!-- ================= HONDA ================= -->
+
+<div class="brand" data-brand="Honda">
+
+<div class="brand-header">
+
+<div class="brand-logo">HONDA</div>
+
+<div>
+<h3>Honda</h3>
+<p>The Power of Dreams</p>
+</div>
+
+</div>
+
+<div class="grid">
+
+
+<div class="card">
+<div class="card-image">
+<span class="badge">SPORT</span>
+<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Honda%20CB190R.jpg">
+</div>
+<div class="card-content">
+<h4>CB 190R 2.0</h4>
+<p class="type">Sport / Naked</p>
+<div class="specs">
+<div class="spec"><small>Cilindraje</small><strong>184.4 cc</strong></div>
+<div class="spec"><small>Potencia</small><strong>16.4 HP</strong></div>
+<div class="spec"><small>Torque</small><strong>15.5 Nm</strong></div>
+<div class="spec"><small>Frenos</small><strong>ABS</strong></div>
+</div>
+<div class="price">$12.790.000</div>
+<button class="btn">Ver ficha</button>
+</div>
+</div>
+
+
+<div class="card">
+<div class="card-image">
+<span class="badge">ENDURO</span>
+<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Honda%20XR150L.jpg">
+</div>
+<div class="card-content">
+<h4>XR 150L 2.0</h4>
+<p class="type">Todo terreno</p>
+<div class="specs">
+<div class="spec"><small>Cilindraje</small><strong>149 cc</strong></div>
+<div class="spec"><small>Motor</small><strong>4T</strong></div>
+<div class="spec"><small>Arranque</small><strong>Eléctrico</strong></div>
+<div class="spec"><small>Freno</small><strong>ABS</strong></div>
+</div>
+<div class="price">$10.590.000</div>
+<button class="btn">Ver ficha</button>
+</div>
+</div>
+
+
+<div class="card">
+<div class="card-image">
+<span class="badge">ADVENTURE</span>
+<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Honda%20XR190L.jpg">
+</div>
+<div class="card-content">
+<h4>XR 190L 2.0</h4>
+<p class="type">Todo terreno</p>
+<div class="specs">
+<div class="spec"><small>Cilindraje</small><strong>184 cc</strong></div>
+<div class="spec"><small>Potencia</small><strong>15.6 HP</strong></div>
+<div class="spec"><small>Torque</small><strong>15.7 Nm</strong></div>
+<div class="spec"><small>Freno</small><strong>ABS</strong></div>
+</div>
+<div class="price">$13.900.000</div>
+<button class="btn">Ver ficha</button>
+</div>
+</div>
+
+
+<div class="card">
+<div class="card-image">
+<span class="badge">SPORT</span>
+<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Honda%20CB300F.jpg">
+</div>
+<div class="card-content">
+<h4>CB 300F</h4>
+<p class="type">Street / Sport</p>
+<div class="specs">
+<div class="spec"><small>Cilindraje</small><strong>293 cc</strong></div>
+<div class="spec"><small>Motor</small><strong>4T</strong></div>
+<div class="spec"><small>Transmisión</small><strong>6 velocidades</strong></div>
+<div class="spec"><small>Frenos</small><strong>ABS</strong></div>
+</div>
+<div class="price">$16.800.000</div>
+<button class="btn">Ver ficha</button>
+</div>
+</div>
+
+
+<div class="card">
+<div class="card-image">
+<span class="badge">URBANA</span>
+<img src="https://commons.wikimedia.org/wiki/Special:FilePath/Honda%20Navi.jpg">
+</div>
+<div class="card-content">
+<h4>NAVI</h4>
+<p class="type">Urbana automática</p>
+<div class="specs">
+<div class="spec"><small>Cilindraje</small><strong>109 cc</strong></div>
+<div class="spec"><small>Motor</small><strong>4T</strong></div>
+<div class="spec"><small>Transmisión</small><strong>Automática</strong></div>
+<div class="spec"><small>Arranque</small><strong>Eléctrico</strong></div>
+</div>
+<div class="price">$7.290.000</div>
+<button class="btn">Ver ficha</button>
+</div>
+</div>
+
+</div>
+</div>
+
+
+<!-- ================= AKT ================= -->
+
+<div class="brand" data-brand="AKT">
+
+<div class="brand-header">
+
+<div class="brand-logo">AKT</div>
+
+<div>
+<h3>AKT</h3>
+<p>Hecha para Colombia</p>
+</div>
+
+</div>
+
+<div class="grid">
+
+
+<div class="card">
+<div class="card-image">
+<span class="badge">CALLE</span>
+<img src="https://commons.wikimedia.org/wiki/Special:FilePath/AKT%20NKD%20125.jpg">
+</div>
+<div class="card-content">
+<h4>NKD 125</h4>
+<p class="type">Street</p>
+<div class="specs">
+<div class="spec"><small>Cilindraje</small><strong>125 cc</strong></div>
+<div class="spec"><small>Motor</small><strong>4T</strong></div>
+<div class="spec"><small>Arranque</small><strong>Eléctrico</strong></div>
+<div class="spec"><small>Transmisión</small><strong>5 velocidades</strong></div>
+</div>
+<div class="price">$4.890.000</div>
+<button class="btn">Ver ficha</button>
+</div>
+</div>
+
+
+<div class="card">
+<div class="card-image">
+<span class="badge">STREET</span>
+<img src="https://commons.wikimedia.org/wiki/Special:FilePath/AKT%20CR4.jpg">
+</div>
+<div class="card-content">
+<h4>CR4 150</h4>
+<p class="type">Street deportiva</p>
+<div class="specs">
+<div class="spec"><small>Cilindraje</small><strong>150 cc</strong></div>
+<div class="spec"><small>Motor</small><strong>4T</strong></div>
+<div class="spec"><small>Arranque</small><strong>Eléctrico</strong></div>
+<div class="spec"><small>Transmisión</small><strong>5 velocidades</strong></div>
+</div>
+<div class="price">$6.990.000</div>
+<button class="btn">Ver ficha</button>
+</div>
+</div>
+
+
+<div class="card">
+<div class="card-image">
+<span class="badge">ADVENTURE</span>
+<img src="https://commons.wikimedia.org/wiki/Special:FilePath/AKT%20TT%20200.jpg">
+</div>
+<div class="card-content">
+<h4>TT 200</h4>
+<p class="type">Doble propósito</p>
+<div class="specs">
+<div class="spec"><small>Cilindraje</small><strong>197 cc</strong></div>
+<div class="spec"><small>Motor</small><strong>4T</strong></div>
+<div class="spec"><small>Arranque</small><strong>Eléctrico</strong></div>
+<div class="spec"><small>Transmisión</small><strong>5 velocidades</strong></div>
+</div>
+<div class="price">$9.190.000</div>
+<button class="btn">Ver ficha</button>
+</div>
+</div>
+
+
+<div class="card">
+<div class="card-image">
+<span class="badge">SCOOTER</span>
+<img src="https://commons.wikimedia.org/wiki/Special:FilePath/AKT%20Dynamic.jpg">
+</div>
+<div class="card-content">
+<h4>Dynamic RX FI</h4>
+<p class="type">Scooter</p>
+<div class="specs">
+<div class="spec"><small>Cilindraje</small><strong>125 cc</strong></div>
+<div class="spec"><small>Alimentación</small><strong>Inyección</strong></div>
+<div class="spec"><small>Transmisión</small><strong>CVT</strong></div>
+<div class="spec"><small>Arranque</small><strong>Eléctrico</strong></div>
+</div>
+<div class="price">$9.490.000</div>
+<button class="btn">Ver ficha</button>
+</div>
+</div>
+
+
+<div class="card">
+<div class="card-image">
+<span class="badge">ENDURO</span>
+<img src="https://commons.wikimedia.org/wiki/Special:FilePath/AKT%20TTR%20200.jpg">
+</div>
+<div class="card-content">
+<h4>TTR 200</h4>
+<p class="type">Enduro</p>
+<div class="specs">
+<div class="spec"><small>Cilindraje</small><strong>200 cc</strong></div>
+<di
