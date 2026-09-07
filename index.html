@@ -6,6 +6,9 @@
 
 <title>MOTOX | Catálogo de Motos</title>
 
+<meta name="description"
+content="MOTOX - Catálogo profesional de motocicletas Yamaha, Honda, AKT y Bajaj.">
+
 <style>
 *{
     margin:0;
@@ -13,271 +16,542 @@
     box-sizing:border-box;
 }
 
+:root{
+    --bg:#080a0f;
+    --bg2:#0d1118;
+    --card:#111722;
+    --card2:#151c28;
+    --text:#f5f7fa;
+    --muted:#929baa;
+    --line:rgba(255,255,255,.08);
+    --accent:#e8b84a;
+    --accent2:#ffd86a;
+}
+
 html{
     scroll-behavior:smooth;
 }
 
 body{
+    background:
+        radial-gradient(circle at 20% 0%,rgba(232,184,74,.08),transparent 28%),
+        radial-gradient(circle at 90% 20%,rgba(70,110,180,.07),transparent 25%),
+        var(--bg);
+    color:var(--text);
     font-family:Arial,Helvetica,sans-serif;
-    background:#070a0f;
-    color:#fff;
+    min-height:100vh;
 }
 
-nav{
+/* HEADER */
+
+header{
     position:sticky;
     top:0;
-    z-index:1000;
-    height:70px;
-    padding:0 7%;
+    z-index:100;
+    background:rgba(8,10,15,.88);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid var(--line);
+}
+
+.nav{
+    max-width:1250px;
+    margin:auto;
+    height:75px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    background:rgba(8,11,16,.96);
-    border-bottom:1px solid #202936;
+    padding:0 22px;
 }
 
 .logo{
-    color:#00e5ff;
-    font-size:27px;
+    font-size:25px;
     font-weight:900;
     letter-spacing:2px;
 }
 
-nav a{
-    color:#fff;
-    text-decoration:none;
-    margin-left:25px;
-    font-weight:bold;
+.logo span{
+    color:var(--accent);
 }
 
-nav a:hover{
-    color:#00e5ff;
+.nav small{
+    color:var(--muted);
+    font-size:12px;
+    letter-spacing:1px;
 }
 
 /* HERO */
 
 .hero{
-    min-height:460px;
-    padding:70px 7%;
-    display:flex;
-    align-items:center;
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(0,0,0,.88),
-            rgba(0,0,0,.48),
-            rgba(0,0,0,.82)
-        ),
-        url("https://commons.wikimedia.org/wiki/Special:Redirect/file/Yamaha%20MT15.jpg")
-        center/cover no-repeat;
+    max-width:1250px;
+    margin:auto;
+    padding:75px 22px 45px;
 }
 
-.hero-content{
-    max-width:750px;
+.hero-label{
+    display:inline-flex;
+    padding:7px 12px;
+    border:1px solid rgba(232,184,74,.25);
+    background:rgba(232,184,74,.07);
+    color:var(--accent2);
+    border-radius:30px;
+    font-size:12px;
+    font-weight:bold;
+    letter-spacing:1px;
+    margin-bottom:18px;
 }
 
 .hero h1{
-    font-size:clamp(48px,8vw,92px);
-    line-height:.9;
+    font-size:clamp(38px,7vw,76px);
+    line-height:.95;
+    max-width:800px;
     letter-spacing:-3px;
 }
 
+.hero h1 span{
+    color:var(--accent);
+}
+
 .hero p{
-    margin-top:25px;
-    color:#b5becb;
-    font-size:19px;
-}
-
-/* STATS */
-
-.stats{
-    padding:30px 7%;
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
-    background:#0c1118;
-}
-
-.stat{
-    padding:25px;
-    text-align:center;
-    background:#111720;
-    border:1px solid #222c38;
-    border-radius:15px;
-}
-
-.stat strong{
-    display:block;
-    color:#00e5ff;
-    font-size:34px;
-    margin-bottom:7px;
+    max-width:650px;
+    color:var(--muted);
+    line-height:1.7;
+    margin-top:20px;
+    font-size:16px;
 }
 
 /* CONTROLES */
 
 .controls{
-    padding:40px 7% 10px;
+    max-width:1250px;
+    margin:0 auto 30px;
+    padding:0 22px;
     display:flex;
-    gap:15px;
+    gap:12px;
+    flex-wrap:wrap;
 }
 
-.controls input,
-.controls select{
-    padding:15px 17px;
-    background:#111720;
-    color:#fff;
-    border:1px solid #293442;
-    border-radius:10px;
-    outline:none;
-}
-
-.controls input{
+.search{
     flex:1;
+    min-width:230px;
+    position:relative;
 }
 
-.controls input:focus,
-.controls select:focus{
-    border-color:#00e5ff;
+.search input{
+    width:100%;
+    height:48px;
+    border:1px solid var(--line);
+    background:var(--card);
+    color:white;
+    border-radius:12px;
+    padding:0 16px;
+    outline:none;
+    font-size:14px;
 }
 
-/* CATALOGO */
-
-.catalogo{
-    padding:20px 7% 80px;
+.search input:focus{
+    border-color:rgba(232,184,74,.5);
 }
 
-.marca{
-    margin-top:45px;
+.filters{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
 }
 
-.marca-title{
+.filter{
+    height:48px;
+    padding:0 17px;
+    border-radius:12px;
+    border:1px solid var(--line);
+    background:var(--card);
+    color:#cbd0d8;
+    cursor:pointer;
+    transition:.2s;
+    font-weight:bold;
+}
+
+.filter:hover,
+.filter.active{
+    background:var(--accent);
+    color:#111;
+    border-color:var(--accent);
+}
+
+/* CATÁLOGO */
+
+.catalog{
+    max-width:1250px;
+    margin:auto;
+    padding:0 22px 80px;
+}
+
+.catalog-header{
     display:flex;
     align-items:center;
-    gap:12px;
-    margin-bottom:22px;
+    justify-content:space-between;
+    margin-bottom:20px;
 }
 
-.marca-title h2{
-    font-size:31px;
+.catalog-header h2{
+    font-size:23px;
 }
 
-.marca-line{
-    height:3px;
-    width:45px;
-    background:#00e5ff;
-    border-radius:10px;
+.counter{
+    color:var(--muted);
+    font-size:13px;
 }
 
 .grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-    gap:20px;
+    grid-template-columns:repeat(4,1fr);
+    gap:17px;
 }
 
-/* TARJETAS */
+/* CARD */
 
 .card{
-    background:#111720;
-    border:1px solid #202b38;
-    border-radius:17px;
+    background:
+        linear-gradient(145deg,rgba(255,255,255,.025),transparent),
+        var(--card);
+    border:1px solid var(--line);
+    border-radius:18px;
     overflow:hidden;
-    transition:.25s;
+    cursor:pointer;
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease;
 }
 
 .card:hover{
-    transform:translateY(-6px);
-    border-color:#00e5ff;
-    box-shadow:0 12px 35px rgba(0,229,255,.10);
+    transform:translateY(-5px);
+    border-color:rgba(232,184,74,.35);
+    box-shadow:0 18px 45px rgba(0,0,0,.28);
 }
 
-.image-box{
-    width:100%;
+.card-image{
     height:230px;
-    background:#fff;
+    position:relative;
     display:flex;
     align-items:center;
     justify-content:center;
+    background:
+        radial-gradient(circle,rgba(255,255,255,.07),transparent 60%),
+        #0b0f15;
     overflow:hidden;
 }
 
-.image-box img{
-    width:100%;
-    height:100%;
+.card-image img{
+    width:92%;
+    height:92%;
     object-fit:contain;
-    display:block;
+    transition:transform .3s ease;
 }
 
-.info{
-    padding:18px;
+.card:hover .card-image img{
+    transform:scale(1.04);
 }
 
-.info h3{
-    font-size:21px;
-    margin-bottom:8px;
-}
-
-.info p{
-    color:#8e99a8;
-}
-
-/* FALLBACK */
-
-.image-error{
-    width:100%;
-    height:100%;
+.brand-badge{
+    position:absolute;
+    top:12px;
+    left:12px;
+    height:30px;
+    min-width:30px;
+    padding:0 9px;
+    border-radius:8px;
     display:flex;
     align-items:center;
     justify-content:center;
-    text-align:center;
-    padding:20px;
-    background:#111720;
-    color:#00e5ff;
+    background:rgba(5,7,10,.8);
+    border:1px solid var(--line);
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:.5px;
+}
+
+.card-content{
+    padding:17px;
+}
+
+.card-brand{
+    color:var(--accent);
+    text-transform:uppercase;
+    font-size:10px;
     font-weight:bold;
+    letter-spacing:1.4px;
+    margin-bottom:6px;
+}
+
+.card h3{
+    font-size:19px;
+    margin-bottom:14px;
+}
+
+.quick-specs{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:7px;
+}
+
+.quick-spec{
+    background:rgba(255,255,255,.035);
+    border-radius:8px;
+    padding:9px;
+}
+
+.quick-spec span{
+    display:block;
+    color:var(--muted);
+    font-size:9px;
+    text-transform:uppercase;
+    margin-bottom:3px;
+}
+
+.quick-spec strong{
+    font-size:12px;
+}
+
+.open-btn{
+    width:100%;
+    height:39px;
+    margin-top:14px;
+    border:0;
+    border-radius:9px;
+    background:#202834;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.card:hover .open-btn{
+    background:var(--accent);
+    color:#111;
+}
+
+/* SIN RESULTADOS */
+
+.no-results{
+    display:none;
+    text-align:center;
+    padding:70px 20px;
+    color:var(--muted);
+}
+
+/* DETALLE */
+
+.detail{
+    display:none;
+    max-width:1250px;
+    margin:0 auto;
+    padding:35px 22px 90px;
+}
+
+.detail.show{
+    display:block;
+}
+
+.back{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:transparent;
+    border:1px solid var(--line);
+    color:#ddd;
+    padding:11px 16px;
+    border-radius:10px;
+    cursor:pointer;
+    margin-bottom:28px;
+    font-weight:bold;
+}
+
+.back:hover{
+    border-color:var(--accent);
+    color:var(--accent);
+}
+
+.detail-box{
+    background:
+        radial-gradient(circle at 80% 10%,rgba(232,184,74,.08),transparent 30%),
+        var(--card);
+    border:1px solid var(--line);
+    border-radius:24px;
+    overflow:hidden;
+}
+
+.detail-top{
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+    min-height:560px;
+}
+
+.detail-photo{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:35px;
+    background:
+        radial-gradient(circle,rgba(255,255,255,.07),transparent 55%),
+        #0a0e14;
+}
+
+.detail-photo img{
+    width:100%;
+    max-height:510px;
+    object-fit:contain;
+}
+
+.detail-info{
+    padding:45px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.detail-brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:18px;
+}
+
+.brand-logo{
+    height:54px;
+    min-width:54px;
+    padding:8px;
+    border-radius:12px;
+    background:#fff;
+    object-fit:contain;
+}
+
+.detail-brand span{
+    color:var(--accent);
+    text-transform:uppercase;
+    letter-spacing:2px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.detail-info h2{
+    font-size:clamp(38px,5vw,64px);
+    letter-spacing:-2px;
+    line-height:1;
+}
+
+.detail-description{
+    color:var(--muted);
+    line-height:1.7;
+    margin:18px 0 30px;
+    max-width:550px;
+}
+
+.spec-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.spec{
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.025);
+    border-radius:12px;
+    padding:14px;
+}
+
+.spec label{
+    color:var(--muted);
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:.7px;
+    display:block;
+    margin-bottom:5px;
+}
+
+.spec strong{
+    font-size:14px;
 }
 
 /* FOOTER */
 
 footer{
-    padding:40px 7%;
+    border-top:1px solid var(--line);
+    padding:30px 22px;
     text-align:center;
-    background:#05070a;
-    color:#737d8a;
+    color:var(--muted);
+    font-size:12px;
 }
 
-/* MOVIL */
+/* RESPONSIVE */
 
-@media(max-width:700px){
+@media(max-width:1050px){
+    .grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+}
 
-    nav{
-        padding:0 5%;
+@media(max-width:760px){
+    .nav{
+        height:65px;
     }
 
-    nav a{
-        margin-left:12px;
-        font-size:14px;
+    .nav small{
+        display:none;
     }
 
     .hero{
-        padding:60px 5%;
+        padding-top:55px;
     }
 
-    .stats{
+    .grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:12px;
+    }
+
+    .card-image{
+        height:190px;
+    }
+
+    .card-content{
+        padding:13px;
+    }
+
+    .card h3{
+        font-size:16px;
+    }
+
+    .detail-top{
         grid-template-columns:1fr;
-        padding:25px 5%;
     }
 
-    .controls{
-        padding:30px 5% 10px;
-        flex-direction:column;
+    .detail-photo{
+        min-height:350px;
     }
 
-    .catalogo{
-        padding:15px 5% 60px;
+    .detail-info{
+        padding:28px 22px;
+    }
+}
+
+@media(max-width:500px){
+    .hero h1{
+        letter-spacing:-2px;
     }
 
     .grid{
         grid-template-columns:1fr;
+    }
+
+    .card-image{
+        height:245px;
+    }
+
+    .detail-photo{
+        min-height:300px;
+    }
+
+    .spec-grid{
+        grid-template-columns:1fr 1fr;
     }
 }
 </style>
@@ -285,675 +559,458 @@ footer{
 
 <body>
 
-<!-- ================= NAV ================= -->
-
-<nav>
-
-    <div class="logo">
-        MOTOX
+<header>
+    <div class="nav">
+        <div class="logo">MOTO<span>X</span></div>
+        <small>CATÁLOGO DE MOTOCICLETAS</small>
     </div>
+</header>
 
-    <div>
-        <a href="#inicio">Inicio</a>
-        <a href="#catalogo">Catálogo</a>
-    </div>
+<section class="hero" id="catalogo">
+    <div class="hero-label">CATÁLOGO 2026</div>
 
-</nav>
+    <h1>
+        Encuentra tu<br>
+        próxima <span>moto.</span>
+    </h1>
 
-
-<!-- ================= HERO ================= -->
-
-<section class="hero" id="inicio">
-
-    <div class="hero-content">
-
-        <h1>
-            CATÁLOGO<br>
-            DE MOTOS
-        </h1>
-
-        <p>
-            Explora 18 motocicletas de Yamaha, Honda, AKT y Bajaj.
-        </p>
-
-    </div>
-
+    <p>
+        Explora motocicletas Yamaha, Honda, AKT y Bajaj.
+        Consulta sus características y abre la ficha completa
+        de cada modelo.
+    </p>
 </section>
 
+<div class="controls">
 
-<!-- ================= ESTADISTICAS ================= -->
-
-<section class="stats">
-
-    <div class="stat">
-        <strong>18</strong>
-        Modelos
+    <div class="search">
+        <input
+            id="search"
+            type="text"
+            placeholder="Buscar moto...">
     </div>
 
-    <div class="stat">
-        <strong>4</strong>
-        Marcas
+    <div class="filters">
+        <button class="filter active" data-brand="Todos">Todas</button>
+        <button class="filter" data-brand="Yamaha">Yamaha</button>
+        <button class="filter" data-brand="Honda">Honda</button>
+        <button class="filter" data-brand="AKT">AKT</button>
+        <button class="filter" data-brand="Bajaj">Bajaj</button>
     </div>
 
-    <div class="stat">
-        <strong>2026</strong>
-        Catálogo
+</div>
+
+<main class="catalog">
+
+    <div class="catalog-header">
+        <h2>Motocicletas</h2>
+        <div class="counter" id="counter">18 modelos</div>
     </div>
 
-</section>
+    <div class="grid" id="grid"></div>
 
-
-<!-- ================= BUSCADOR ================= -->
-
-<section class="controls">
-
-    <input
-        type="text"
-        id="busqueda"
-        placeholder="🔎 Buscar moto..."
-    >
-
-    <select id="filtro">
-
-        <option value="todas">
-            Todas las marcas
-        </option>
-
-        <option value="Yamaha">
-            Yamaha
-        </option>
-
-        <option value="Honda">
-            Honda
-        </option>
-
-        <option value="AKT">
-            AKT
-        </option>
-
-        <option value="Bajaj">
-            Bajaj
-        </option>
-
-    </select>
-
-</section>
-
-
-<!-- ================= CATALOGO ================= -->
-
-<main class="catalogo" id="catalogo">
-
-
-<!-- =====================================================
-     YAMAHA
-===================================================== -->
-
-<section class="marca" data-marca="Yamaha">
-
-    <div class="marca-title">
-        <div class="marca-line"></div>
-        <h2>Yamaha</h2>
+    <div class="no-results" id="noResults">
+        No encontramos motocicletas con esa búsqueda.
     </div>
-
-    <div class="grid">
-
-
-        <!-- MT15 -->
-
-        <div class="card" data-nombre="Yamaha MT-15">
-
-            <div class="image-box">
-
-                <img
-                    src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Yamaha%20MT15.jpg"
-                    data-respaldos='[
-                        "https://commons.wikimedia.org/wiki/Special:Redirect/file/Yamaha%20MT15%205.jpg",
-                        "https://commons.wikimedia.org/wiki/Special:Redirect/file/Yamaha%20MT15%203.jpg"
-                    ]'
-                    alt="Yamaha MT-15"
-                    onerror="cambiarImagen(this)"
-                >
-
-            </div>
-
-            <div class="info">
-                <h3>MT-15</h3>
-                <p>Yamaha</p>
-            </div>
-
-        </div>
-
-
-        <!-- FZ25 -->
-
-        <div class="card" data-nombre="Yamaha FZ25">
-
-            <div class="image-box">
-
-                <img
-                    src="https://motoringwebuploads.s3.ap-south-1.amazonaws.com/wp-content/uploads/2017/01/11185003/C27D07kW8AIKx2u.jpg"
-                    data-respaldos='[
-                        "https://placehold.co/800x500/111720/00e5ff?text=Yamaha+FZ25"
-                    ]'
-                    alt="Yamaha FZ25"
-                    onerror="cambiarImagen(this)"
-                >
-
-            </div>
-
-            <div class="info">
-                <h3>FZ25</h3>
-                <p>Yamaha</p>
-            </div>
-
-        </div>
-
-
-        <!-- XTZ125 -->
-
-        <div class="card" data-nombre="Yamaha XTZ125">
-
-            <div class="image-box">
-
-                <img
-                    src="https://yamaha-moto.cfaomotors-gambia.com/media/gamme/modeles/images/b7b25e8fe3a9f1002442cbcd1a502f26.jpeg"
-                    data-respaldos='[
-                        "https://placehold.co/800x500/111720/00e5ff?text=Yamaha+XTZ125"
-                    ]'
-                    alt="Yamaha XTZ125"
-                    onerror="cambiarImagen(this)"
-                >
-
-            </div>
-
-            <div class="info">
-                <h3>XTZ125</h3>
-                <p>Yamaha</p>
-            </div>
-
-        </div>
-
-
-        <!-- XTZ150 -->
-
-        <div class="card" data-nombre="Yamaha XTZ150">
-
-            <div class="image-box">
-
-                <img
-                    src="https://www.yamaha-motor.com.mx/assets/images/motorcycles/headers/xtz-150-2026.jpg"
-                    data-respaldos='[
-                        "https://placehold.co/800x500/111720/00e5ff?text=Yamaha+XTZ150"
-                    ]'
-                    alt="Yamaha XTZ150"
-                    onerror="cambiarImagen(this)"
-                >
-
-            </div>
-
-            <div class="info">
-                <h3>XTZ150</h3>
-                <p>Yamaha</p>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     HONDA
-===================================================== -->
-
-<section class="marca" data-marca="Honda">
-
-    <div class="marca-title">
-        <div class="marca-line"></div>
-        <h2>Honda</h2>
-    </div>
-
-    <div class="grid">
-
-
-        <!-- CB190R -->
-
-        <div class="card" data-nombre="Honda CB190R 2.0">
-
-            <div class="image-box">
-
-                <img
-                    src="https://motos.honda.com.co/images/cms/honda-cb190r-gris.png"
-                    data-respaldos='[
-                        "https://placehold.co/800x500/111720/00e5ff?text=Honda+CB190R+2.0"
-                    ]'
-                    alt="Honda CB190R 2.0"
-                    onerror="cambiarImagen(this)"
-                >
-
-            </div>
-
-            <div class="info">
-                <h3>CB190R 2.0</h3>
-                <p>Honda</p>
-            </div>
-
-        </div>
-
-
-        <!-- XR150L -->
-
-        <div class="card" data-nombre="Honda XR150L 2.0">
-
-            <div class="image-box">
-
-                <img
-                    src="https://i5.walmartimages.cl/asr/207a1d55-1e71-44b4-adbf-21fd495ff728.64377727fc34a9d6347f3818d5346a56.jpeg?odnBg=ffffff&odnHeight=2000&odnWidth=2000"
-                    data-respaldos='[
-                        "https://placehold.co/800x500/111720/00e5ff?text=Honda+XR150L+2.0"
-                    ]'
-                    alt="Honda XR150L 2.0"
-                    onerror="cambiarImagen(this)"
-                >
-
-            </div>
-
-            <div class="info">
-                <h3>XR150L 2.0</h3>
-                <p>Honda</p>
-            </div>
-
-        </div>
-
-
-        <!-- XR190L -->
-
-        <div class="card" data-nombre="Honda XR190L 2.0">
-
-            <div class="image-box">
-
-                <img
-                    src="https://motos.honda.com.co/images/cms/Honda_XR_190L_ABSblanca.png"
-                    data-respaldos='[
-                        "https://placehold.co/800x500/111720/00e5ff?text=Honda+XR190L+2.0"
-                    ]'
-                    alt="Honda XR190L 2.0"
-                    onerror="cambiarImagen(this)"
-                >
-
-            </div>
-
-            <div class="info">
-                <h3>XR190L 2.0</h3>
-                <p>Honda</p>
-            </div>
-
-        </div>
-
-
-        <!-- CB300F -->
-
-        <div class="card" data-nombre="Honda CB300F">
-
-            <div class="image-box">
-
-                <img
-                    src="https://commons.wikimedia.org/wiki/Special:Redirect/file/HondaCB300F.jpg"
-                    data-respaldos='[
-                        "https://placehold.co/800x500/111720/00e5ff?text=Honda+CB300F"
-                    ]'
-                    alt="Honda CB300F"
-                    onerror="cambiarImagen(this)"
-                >
-
-            </div>
-
-            <div class="info">
-                <h3>CB300F</h3>
-                <p>Honda</p>
-            </div>
-
-        </div>
-
-
-        <!-- NAVI -->
-
-        <div class="card" data-nombre="Honda NAVI">
-
-            <div class="image-box">
-
-                <img
-                    src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Honda%20Navi%20100.jpg"
-                    data-respaldos='[
-                        "https://placehold.co/800x500/111720/00e5ff?text=Honda+NAVI"
-                    ]'
-                    alt="Honda NAVI"
-                    onerror="cambiarImagen(this)"
-                >
-
-            </div>
-
-            <div class="info">
-                <h3>NAVI</h3>
-                <p>Honda</p>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     AKT
-===================================================== -->
-
-<section class="marca" data-marca="AKT">
-
-    <div class="marca-title">
-        <div class="marca-line"></div>
-        <h2>AKT</h2>
-    </div>
-
-    <div class="grid">
-
-
-        <!-- NKD -->
-
-        <div class="card" data-nombre="AKT NKD 125">
-
-            <div class="image-box">
-
-                <img
-                    src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Moto%20AKT%20125.jpg"
-                    data-respaldos='[
-                        "https://placehold.co/800x500/111720/00e5ff?text=AKT+NKD+125"
-                    ]'
-                    alt="AKT NKD 125"
-                    onerror="cambiarImagen(this)"
-                >
-
-            </div>
-
-            <div class="info">
-                <h3>NKD 125</h3>
-                <p>AKT</p>
-            </div>
-
-        </div>
-
-
-        <!-- CR4 150 -->
-
-        <div class="card" data-nombre="AKT CR4 150">
-
-            <div class="image-box">
-
-                <img
-                    src="https://discolmotos.com/wp-content/uploads/2025/09/CR4-150-negra-4.webp"
-                    data-respaldos='[
-                        "https://placehold.co/800x500/111720/00e5ff?text=AKT+CR4+150"
-                    ]'
-                    alt="AKT CR4 150"
-                    onerror="cambiarImagen(this)"
-                >
-
-            </div>
-
-            <div class="info">
-                <h3>CR4 150</h3>
-                <p>AKT</p>
-            </div>
-
-        </div>
-
-
-        <!-- TT200 -->
-
-        <div class="card" data-nombre="AKT TT200">
-
-            <div class="image-box">
-
-                <img
-                    src="https://zagamotos.com/wp-content/uploads/2019/11/ttr-200-akt-blanca-1.webp"
-                    data-respaldos='[
-                        "https://placehold.co/800x500/111720/00e5ff?text=AKT+TT200"
-                    ]'
-                    alt="AKT TT200"
-                    onerror="cambiarImagen(this)"
-                >
-
-            </div>
-
-            <div class="info">
-                <h3>TT200</h3>
-                <p>AKT</p>
-            </div>
-
-        </div>
-
-
-        <!-- CR4 200 PRO -->
-
-        <div class="card" data-nombre="AKT CR4 200 Pro">
-
-            <div class="image-box">
-
-                <img
-                    src="https://zagamotos.com/wp-content/uploads/2023/04/CR4-200-3.webp"
-                    data-respaldos='[
-                        "https://placehold.co/800x500/111720/00e5ff?text=AKT+CR4+200+Pro"
-                    ]'
-                    alt="AKT CR4 200 Pro"
-                    onerror="cambiarImagen(this)"
-                >
-
-            </div>
-
-            <div class="info">
-                <h3>CR4 200 Pro</h3>
-                <p>AKT</p>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
-     BAJAJ
-===================================================== -->
-
-<section class="marca" data-marca="Bajaj">
-
-    <div class="marca-title">
-        <div class="marca-line"></div>
-        <h2>Bajaj</h2>
-    </div>
-
-    <div class="grid">
-
-
-        <!-- NS200 -->
-
-        <div class="card" data-nombre="Bajaj Pulsar NS200">
-
-            <div class="image-box">
-
-                <img
-                    src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Bj%20Pulsar%20NS%20200.jpg"
-                    data-respaldos='[
-                        "https://commons.wikimedia.org/wiki/Special:Redirect/file/Bajaj%20Pulsar%20200%20NS.jpg",
-                        "https://commons.wikimedia.org/wiki/Special:Redirect/file/Bajaj%20Pulsar%20200%20ns%20grey%20and%20red.jpg"
-                    ]'
-                    alt="Bajaj Pulsar NS200"
-                    onerror="cambiarImagen(this)"
-                >
-
-            </div>
-
-            <div class="info">
-                <h3>Pulsar NS200</h3>
-                <p>Bajaj</p>
-            </div>
-
-        </div>
-
-
-        <!-- N160 -->
-
-        <div class="card" data-nombre="Bajaj Pulsar N160">
-
-            <div class="image-box">
-
-                <img
-                    src="https://commons.wikimedia.org/wiki/Special:Redirect/file/BAJAJ%20Pulsar%20NS160.jpg"
-                    data-respaldos='[
-                        "https://placehold.co/800x500/111720/00e5ff?text=Bajaj+Pulsar+N160"
-                    ]'
-                    alt="Bajaj Pulsar N160"
-                    onerror="cambiarImagen(this)"
-                >
-
-            </div>
-
-            <div class="info">
-                <h3>Pulsar N160</h3>
-                <p>Bajaj</p>
-            </div>
-
-        </div>
-
-
-        <!-- N250 -->
-
-        <div class="card" data-nombre="Bajaj Pulsar N250">
-
-            <div class="image-box">
-
-                <img
-                    src="https://www.rutamotor.com/wp-content/uploads/2023/05/pulsar-n250-rutamotor-03.jpg"
-                    data-respaldos='[
-                        "https://placehold.co/800x500/111720/00e5ff?text=Bajaj+Pulsar+N250"
-                    ]'
-                    alt="Bajaj Pulsar N250"
-                    onerror="cambiarImagen(this)"
-                >
-
-            </div>
-
-            <div class="info">
-                <h3>Pulsar N250</h3>
-                <p>Bajaj</p>
-            </div>
-
-        </div>
-
-
-        <!-- DOMINAR -->
-
-        <div class="card" data-nombre="Bajaj Dominar 250">
-
-            <div class="image-box">
-
-                <img
-                    src="https://www.bajajauto.com/-/media/assets/bajaj-auto/motorcycles/dominar-250/dominar-250.png"
-                    data-respaldos='[
-                        "https://placehold.co/800x500/111720/00e5ff?text=Bajaj+Dominar+250"
-                    ]'
-                    alt="Bajaj Dominar 250"
-                    onerror="cambiarImagen(this)"
-                >
-
-            </div>
-
-            <div class="info">
-                <h3>Dominar 250</h3>
-                <p>Bajaj</p>
-            </div>
-
-        </div>
-
-
-        <!-- BOXER -->
-
-        <div class="card" data-nombre="Bajaj Boxer CT100 ES">
-
-            <div class="image-box">
-
-                <img
-                    src="https://publimotosmagazine.nyc3.digitaloceanspaces.com/%E2%81%A0publimotos_tienda_production/uploads/2024/04/Boxer-CT100-4.webp"
-                    data-respaldos='[
-                        "https://commons.wikimedia.org/wiki/Special:Redirect/file/Ct100%20side.jpg"
-                    ]'
-                    alt="Bajaj Boxer CT100 ES"
-                    onerror="cambiarImagen(this)"
-                >
-
-            </div>
-
-            <div class="info">
-                <h3>Boxer CT100 ES</h3>
-                <p>Bajaj</p>
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
 
 </main>
 
+<section class="detail" id="detail">
 
-<!-- ================= FOOTER ================= -->
+    <button class="back" onclick="volverCatalogo()">
+        ← Volver al catálogo
+    </button>
+
+    <div class="detail-box">
+
+        <div class="detail-top">
+
+            <div class="detail-photo">
+                <img id="detailImage" src="" alt="">
+            </div>
+
+            <div class="detail-info">
+
+                <div class="detail-brand">
+                    <img
+                        id="detailLogo"
+                        class="brand-logo"
+                        src=""
+                        alt="Logo">
+
+                    <span id="detailBrand"></span>
+                </div>
+
+                <h2 id="detailName"></h2>
+
+                <p class="detail-description" id="detailDescription"></p>
+
+                <div class="spec-grid">
+
+                    <div class="spec">
+                        <label>Cilindraje</label>
+                        <strong id="specCc"></strong>
+                    </div>
+
+                    <div class="spec">
+                        <label>Potencia</label>
+                        <strong id="specHp"></strong>
+                    </div>
+
+                    <div class="spec">
+                        <label>Torque</label>
+                        <strong id="specTorque"></strong>
+                    </div>
+
+                    <div class="spec">
+                        <label>RPM potencia</label>
+                        <strong id="specPowerRpm"></strong>
+                    </div>
+
+                    <div class="spec">
+                        <label>RPM torque</label>
+                        <strong id="specTorqueRpm"></strong>
+                    </div>
+
+                    <div class="spec">
+                        <label>Motor</label>
+                        <strong id="specEngine"></strong>
+                    </div>
+
+                    <div class="spec">
+                        <label>Transmisión</label>
+                        <strong id="specTransmission"></strong>
+                    </div>
+
+                    <div class="spec">
+                        <label>Peso</label>
+                        <strong id="specWeight"></strong>
+                    </div>
+
+                    <div class="spec">
+                        <label>Tanque</label>
+                        <strong id="specTank"></strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
 
 <footer>
-
-    MOTOX © 2026 — Catálogo de motocicletas
-
+    MOTOX © 2026 · Catálogo de motocicletas
 </footer>
-
-
-<!-- =====================================================
-     SISTEMA DE RESPALDO DE IMAGENES
-===================================================== -->
 
 <script>
 
-function cambiarImagen(img){
+/* =========================================================
+   LOGOS
+========================================================= */
 
-    let respaldos = [];
+const logos = {
 
-    try{
-        respaldos = JSON.parse(
-            img.dataset.respaldos || "[]"
-        );
-    }catch(e){
-        respaldos = [];
-    }
+    Yamaha:
+        "https://cdn.simpleicons.org/yamaha/111111",
 
-    if(respaldos.length > 0){
+    Honda:
+        "https://cdn.simpleicons.org/honda/111111",
 
-        const siguiente = respaldos.shift();
+    Bajaj:
+        "https://cdn.simpleicons.org/bajaj/111111",
 
-        img.dataset.respaldos =
-            JSON.stringify(respaldos);
+    AKT:
+        "https://commons.wikimedia.org/wiki/Special:Redirect/file/AKT_logo.PNG"
 
-        img.src = siguiente;
+};
 
-    }else{
 
-        img.onerror = null;
+/* =========================================================
+   MOTOCICLETAS
+========================================================= */
 
-        const contenedor =
-            img.closest(".image-box");
+const motos = [
 
-        contenedor.innerHTML = `
-            <div class="image-error">
-      
+/* YAMAHA */
+
+{
+    name:"MT-15",
+    brand:"Yamaha",
+    image:[
+        "https://commons.wikimedia.org/wiki/Special:Redirect/file/Yamaha%20MT15.jpg",
+        "https://commons.wikimedia.org/wiki/Special:Redirect/file/Yamaha%20MT15%205.jpg"
+    ],
+    cc:"155 cc",
+    hp:"19 HP",
+    torque:"14.7 Nm",
+    powerRpm:"10.000 rpm",
+    torqueRpm:"8.500 rpm",
+    engine:"4T SOHC, refrigerado por líquido",
+    transmission:"6 velocidades",
+    weight:"134 kg",
+    tank:"10 L"
+},
+
+{
+    name:"FZ25",
+    brand:"Yamaha",
+    image:[
+        "https://motoringwebuploads.s3.ap-south-1.amazonaws.com/wp-content/uploads/2017/01/11185003/C27D07kW8AIKx2u.jpg"
+    ],
+    cc:"249 cc",
+    hp:"20.6 HP",
+    torque:"20.0 Nm",
+    powerRpm:"8.000 rpm",
+    torqueRpm:"6.000 rpm",
+    engine:"4T SOHC, refrigerado por aire/aceite",
+    transmission:"5 velocidades",
+    weight:"149 kg",
+    tank:"14 L"
+},
+
+{
+    name:"XTZ125",
+    brand:"Yamaha",
+    image:[
+        "https://yamaha-moto.cfaomotors-gambia.com/media/gamme/modeles/images/b7b25e8fe3a9f1002442cbcd1a502f26.jpeg"
+    ],
+    cc:"124 cc",
+    hp:"10.0 HP",
+    torque:"9.9 Nm",
+    powerRpm:"7.500 rpm",
+    torqueRpm:"5.500 rpm",
+    engine:"4T SOHC, refrigerado por aire",
+    transmission:"5 velocidades",
+    weight:"118 kg",
+    tank:"9.9 L"
+},
+
+{
+    name:"XTZ150",
+    brand:"Yamaha",
+    image:[
+        "https://commons.wikimedia.org/wiki/Special:Redirect/file/Yamaha%20XTZ150.jpg",
+        "https://commons.wikimedia.org/wiki/Special:Redirect/file/Yamaha%20XTZ%20150.jpg"
+    ],
+    cc:"149 cc",
+    hp:"12.3 HP",
+    torque:"13.1 Nm",
+    powerRpm:"7.500 rpm",
+    torqueRpm:"6.000 rpm",
+    engine:"4T SOHC, refrigerado por aire",
+    transmission:"5 velocidades",
+    weight:"136 kg",
+    tank:"11 L"
+},
+
+/* HONDA */
+
+{
+    name:"CB190R 2.0",
+    brand:"Honda",
+    image:[
+        "https://motos.honda.com.co/images/cms/honda-cb190r-gris.png",
+        "https://commons.wikimedia.org/wiki/Special:Redirect/file/Honda%20CB%20190R%20Repsol.jpg"
+    ],
+    cc:"184.4 cc",
+    hp:"16.4 HP",
+    torque:"15.5 Nm",
+    powerRpm:"8.500 rpm",
+    torqueRpm:"6.000 rpm",
+    engine:"4T OHC, refrigerado por aire",
+    transmission:"5 velocidades",
+    weight:"141 kg",
+    tank:"12 L"
+},
+
+{
+    name:"XR150L 2.0",
+    brand:"Honda",
+    image:[
+        "https://i5.walmartimages.cl/asr/207a1d55-1e71-44b4-adbf-21fd495ff728.64377727fc34a9d6347f3818d5346a56.jpeg?odnBg=ffffff&odnHeight=2000&odnWidth=2000"
+    ],
+    cc:"149.1 cc",
+    hp:"11.7 HP",
+    torque:"12.1 Nm",
+    powerRpm:"8.000 rpm",
+    torqueRpm:"6.000 rpm",
+    engine:"4T OHC, refrigerado por aire",
+    transmission:"Manual",
+    weight:"129 kg",
+    tank:"12 L"
+},
+
+{
+    name:"XR190L 2.0",
+    brand:"Honda",
+    image:[
+        "https://motos.honda.com.co/images/cms/Honda_XR_190L_ABSblanca.png",
+        "https://commons.wikimedia.org/wiki/Special:Redirect/file/Honda%20XR190L.jpg"
+    ],
+    cc:"184 cc",
+    hp:"15.6 HP",
+    torque:"15.7 Nm",
+    powerRpm:"8.500 rpm",
+    torqueRpm:"6.000 rpm",
+    engine:"4T OHC, refrigerado por aire",
+    transmission:"Manual",
+    weight:"133 kg",
+    tank:"12 L"
+},
+
+{
+    name:"CB300F",
+    brand:"Honda",
+    image:[
+        "https://commons.wikimedia.org/wiki/Special:Redirect/file/HondaCB300F.jpg"
+    ],
+    cc:"293.52 cc",
+    hp:"24.1 HP",
+    torque:"25.6 Nm",
+    powerRpm:"7.500 rpm",
+    torqueRpm:"5.500 rpm",
+    engine:"4T SOHC 4 válvulas, refrigerado por aceite",
+    transmission:"6 velocidades",
+    weight:"153 kg",
+    tank:"14.1 L"
+},
+
+{
+    name:"NAVI",
+    brand:"Honda",
+    image:[
+        "https://commons.wikimedia.org/wiki/Special:Redirect/file/Honda%20Navi%20100.jpg"
+    ],
+    cc:"109.19 cc",
+    hp:"7.9 HP",
+    torque:"8.91 Nm",
+    powerRpm:"7.500 rpm",
+    torqueRpm:"5.000 rpm",
+    engine:"4T OHC, refrigerado por aire",
+    transmission:"Automática V-Matic",
+    weight:"101 kg",
+    tank:"3.5 L"
+},
+
+/* AKT */
+
+{
+    name:"NKD 125",
+    brand:"AKT",
+    image:[
+        "https://www.sbmotors.com.co/wp-content/uploads/2026/01/NKD-125-1.webp",
+        "https://www.galgo.com/co/motos/CO928-akt-motos-nkd-125?src=WebMotoBF22"
+    ],
+    cc:"124 cc",
+    hp:"10.34 HP",
+    torque:"9.3 Nm",
+    powerRpm:"8.000 rpm",
+    torqueRpm:"7.000 rpm",
+    engine:"4T OHV monocilíndrico",
+    transmission:"5 velocidades",
+    weight:"94.5 kg",
+    tank:"9.8 L"
+},
+
+{
+    name:"CR4 150",
+    brand:"AKT",
+    image:[
+        "https://discolmotos.com/wp-content/uploads/2025/09/CR4-150-negra-4.webp"
+    ],
+    cc:"149 cc",
+    hp:"11 HP",
+    torque:"11 Nm",
+    powerRpm:"8.000 rpm",
+    torqueRpm:"6.500 rpm",
+    engine:"4T monocilíndrico",
+    transmission:"5 velocidades",
+    weight:"115 kg",
+    tank:"10 L"
+},
+
+{
+    name:"TT200",
+    brand:"AKT",
+    image:[
+        "https://zagamotos.com/wp-content/uploads/2019/11/ttr-200-akt-blanca-1.webp"
+    ],
+    cc:"197 cc",
+    hp:"16.5 HP",
+    torque:"15.5 Nm",
+    powerRpm:"8.000 rpm",
+    torqueRpm:"6.500 rpm",
+    engine:"4T monocilíndrico",
+    transmission:"6 velocidades",
+    weight:"120 kg",
+    tank:"12 L"
+},
+
+{
+    name:"CR4 200 Pro",
+    brand:"AKT",
+    image:[
+        "https://zagamotos.com/wp-content/uploads/2023/04/CR4-200-3.webp"
+    ],
+    cc:"197 cc",
+    hp:"16.5 HP",
+    torque:"15.5 Nm",
+    powerRpm:"8.000 rpm",
+    torqueRpm:"6.500 rpm",
+    engine:"4T monocilíndrico",
+    transmission:"6 velocidades",
+    weight:"120 kg",
+    tank:"12 L"
+},
+
+/* BAJAJ */
+
+{
+    name:"Pulsar NS200",
+    brand:"Bajaj",
+    image:[
+        "https://commons.wikimedia.org/wiki/Special:Redirect/file/Bj%20Pulsar%20NS%20200.jpg",
+        "https://www.motoroil.com.tr/images/urunler/pulsar-ns200-200cc-1812954213-1.png"
+    ],
+    cc:"199.4 cc",
+    hp:"24.12 HP",
+    torque:"18.6 Nm",
+    powerRpm:"9.750 rpm",
+    torqueRpm:"8.000 rpm",
+    engine:"4T, refrigerado por líquido",
+    transmission:"6 velocidades",
+    weight:"158 kg",
+    tank:"12 L"
+},
+
+{
+    name:"Pulsar N160",
+    brand:"Bajaj",
+    image:[
+        "https://images.ctfassets.net/8zlbnewncp6f/Bnojn2wxWVc2qWx96qWLm/78d2c5a1ecc3c1b16eb7ab44d63dabde/Imagen_principal.png?fit=pad&fm=webp&h=500&q=95&w=500"
+    ],
+    cc:"164.82 cc",
+    hp:"15.7 HP",
+    torque:"14.65 Nm",
+    powerRpm:"8.750 rpm",
+    torqueRpm:"6.750 rpm",
+    engine:"4T, refrigerado por aceite",
+    transmission:"5 velocidades",
+    weight:"152 kg",
+    tank:"14 L"
+},
+
+{
+    name:"Pulsar N250",
+    brand:"Bajaj",
+    image:[
+        "https://www.rutamotor.com/wp-content/uploads/2023/05/pulsar-n250-rutamotor-03.jpg"
+    ],
+    cc:"249.07 cc",
+    hp:"24.16 HP",
+    torque:"21.5 Nm",
+    powerRpm:"8.750 
